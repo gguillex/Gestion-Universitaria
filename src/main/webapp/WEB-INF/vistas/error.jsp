@@ -4,15 +4,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Error</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
     <jsp:include page="menu.jsp"/>
     <h2>Se ha producido un error</h2>
-    <p class="error">
+    <p class="error" role="alert">
         <c:out value="${error}" default="Error desconocido"/>
     </p>
-    <p><a href="${pageContext.request.contextPath}/control?idAccion=listarTitulaciones">Volver al inicio</a></p>
+    <p class="toolbar">
+        <a href="${pageContext.request.contextPath}/control?idAccion=listarTitulaciones">Volver al inicio</a>
+    </p>
 </body>
 </html>
