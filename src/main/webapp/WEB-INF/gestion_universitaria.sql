@@ -67,8 +67,11 @@ CREATE TABLE matriculas (
 -- Datos iniciales
 -- ============================================================
 
--- Usuario administrador por defecto
-INSERT INTO usuarios (nombre, password, rol) VALUES ('admin', 'admin', 'admin');
+-- Usuario administrador por defecto (usuario: admin / contraseña: admin).
+-- La contraseña se guarda como hash PBKDF2 (formato de gestion.util.Passwords).
+-- Cámbiala tras el primer acceso desde la gestión de usuarios.
+INSERT INTO usuarios (nombre, password, rol) VALUES
+    ('admin', 'pbkdf2$210000$xkio3R/CS7gTfPXtUV/8CQ==$026SjJvt6YoqVOCkgitP40xfe/BrGFA5wfo1NslXMaQ=', 'admin');
 
 -- Datos de ejemplo para pruebas
 INSERT INTO titulaciones (nombre, descripcion) VALUES
