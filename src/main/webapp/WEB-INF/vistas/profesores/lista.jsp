@@ -4,7 +4,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Profesores</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profesores · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
@@ -19,25 +20,25 @@
     </p>
 
     <c:if test="${not empty mensaje}">
-        <p class="ok"><c:out value="${mensaje}"/></p>
+        <p class="ok" role="status"><c:out value="${mensaje}"/></p>
     </c:if>
     <c:if test="${not empty error}">
-        <p class="error"><c:out value="${error}"/></p>
+        <p class="error" role="alert"><c:out value="${error}"/></p>
     </c:if>
 
-    <table>
+    <table class="tabla-placas">
         <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Acciones</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+            <th scope="col">Acciones</th>
         </tr>
         <c:forEach var="p" items="${profesores}">
             <tr>
-                <td>${p.id}</td>
-                <td><c:out value="${p.nombre}"/></td>
-                <td><c:out value="${p.email}"/></td>
-                <td>
+                <td class="celda-id" data-label="ID"><span class="placa">${p.id}</span></td>
+                <td class="celda-principal" data-label="Nombre"><c:out value="${p.nombre}"/></td>
+                <td data-label="Email"><c:out value="${p.email}"/></td>
+                <td class="celda-acciones">
                     <a href="${pageContext.request.contextPath}/control?idAccion=formProfesor&id=${p.id}">Editar</a>
                     <form class="form-borrar" action="${pageContext.request.contextPath}/control" method="post"
                           onsubmit="return confirm('¿Eliminar profesor? Se desasignará de sus asignaturas.')">
@@ -50,7 +51,13 @@
             </tr>
         </c:forEach>
         <c:if test="${empty profesores}">
-            <tr><td colspan="4"><em>No hay profesores registrados</em></td></tr>
+            <tr class="fila-vacia">
+                <td colspan="4" class="vacio">
+                    <strong class="vacio-titulo">Sin profesores</strong>
+                    <p>No hay profesores registrados</p>
+                    <a href="${pageContext.request.contextPath}/control?idAccion=formProfesor">Nuevo profesor</a>
+                </td>
+            </tr>
         </c:if>
     </table>
 

@@ -4,7 +4,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Asignar profesor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asignar profesor · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
@@ -16,8 +17,8 @@
         <input type="hidden" name="idAccion" value="asignarProfesor">
         <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 
-        <label>Asignatura:
-            <select name="idAsignatura" required>
+        <label>Asignatura
+            <select name="idAsignatura" required autofocus>
                 <option value="">— selecciona —</option>
                 <c:forEach var="a" items="${asignaturas}">
                     <option value="${a.id}">
@@ -26,9 +27,9 @@
                     </option>
                 </c:forEach>
             </select>
+            <span class="campo-error">Elige la asignatura.</span>
         </label>
-
-        <label>Profesor:
+        <label>Profesor
             <select name="idProfesor">
                 <option value="">— sin asignar —</option>
                 <c:forEach var="p" items="${profesores}">
@@ -37,8 +38,10 @@
             </select>
         </label>
 
-        <button type="submit">Asignar</button>
-        <a href="${pageContext.request.contextPath}/control?idAccion=listarAsignaturas">Cancelar</a>
+        <div class="acciones-form">
+            <button type="submit">Asignar</button>
+            <a href="${pageContext.request.contextPath}/control?idAccion=listarAsignaturas">Cancelar</a>
+        </div>
     </form>
 
 </body>
