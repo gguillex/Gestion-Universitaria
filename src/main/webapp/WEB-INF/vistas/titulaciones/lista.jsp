@@ -50,7 +50,13 @@
             </tr>
         </c:forEach>
         <c:if test="${empty titulaciones}">
-            <tr><td colspan="4"><em>No hay titulaciones registradas</em></td></tr>
+            <tr class="fila-vacia">
+                <td colspan="4" class="vacio">
+                    <strong class="vacio-titulo">Sin titulaciones</strong>
+                    <p>No hay titulaciones registradas</p>
+                    <a href="${pageContext.request.contextPath}/control?idAccion=formTitulacion">Nueva titulación</a>
+                </td>
+            </tr>
         </c:if>
     </table>
 

@@ -602,6 +602,95 @@ body.auth form { width: 100%; max-width: 380px; }
     .auth-titulo { margin-bottom: var(--e-4); }
 }
 
+/* ---------- Estado vacío de un listado ---------- */
+
+.fila-vacia:hover td { background: var(--c-superficie); }
+td.vacio { padding: var(--e-7) var(--e-5); }
+.vacio-titulo {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-stretch: var(--f-ancho-rotulo);
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+.vacio-titulo::before { content: "\201C"; }
+.vacio-titulo::after  { content: "\201D"; }
+.vacio p { margin: var(--e-1) 0 var(--e-4); color: var(--c-texto-suave); }
+/* La acción para salir del vacío es la principal: etiqueta naranja */
+table td.vacio a {
+    min-height: var(--alto-control);
+    padding: 0 var(--e-4);
+    margin: 0;
+    background: var(--c-accion);
+    font-size: var(--t-sm);
+}
+table td.vacio a:hover { background: var(--c-accion-hover); color: var(--c-tinta); }
+
+/* Celda sin dato: raya en lugar de hueco */
+td:empty::after { content: "\2014"; color: var(--c-texto-suave); }
+
+/* ---------- Validación visible en formularios ---------- */
+
+/* El mensaje de cada campo está en el marcado y solo se muestra cuando el
+   navegador marca el campo como inválido tras la interacción del usuario. */
+.campo-error {
+    display: none;
+    margin-top: var(--e-1);
+    font-family: var(--f-base);
+    font-size: var(--t-sm);
+    font-weight: 600;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--c-tinta);
+}
+.campo-error::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    vertical-align: -1px;
+    border: 1px solid var(--c-tinta);
+    background: var(--franja);
+}
+form input:user-invalid,
+form select:user-invalid,
+form textarea:user-invalid {
+    background: var(--franja) bottom / 100% 5px no-repeat, var(--c-superficie);
+    padding-bottom: calc(var(--e-2) + 3px);
+}
+form input:user-invalid ~ .campo-error,
+form select:user-invalid ~ .campo-error,
+form textarea:user-invalid ~ .campo-error { display: block; }
+
+/* ---------- Botones al pie de un formulario ---------- */
+
+.acciones-form { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-5); }
+.acciones-form button[type="submit"] { margin-top: 0; }
+.acciones-form a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--alto-control);
+    margin: 0;
+    padding: 0 var(--e-4);
+    border: var(--borde);
+    border-radius: var(--r-control);
+    background: var(--c-superficie);
+    color: var(--c-tinta);
+    font-size: var(--t-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background var(--dur-corta) var(--ease-salida);
+}
+.acciones-form a:hover { background: var(--c-fila-hover); color: var(--c-tinta); }
+@media (max-width: 480px) {
+    .acciones-form > * { flex: 1 1 100%; }
+}
+
 /* ---------- Anchos medios y pequeños (páginas internas) ---------- */
 
 /* Donde los siete enlaces ya no caben junto a la marca y el usuario, la barra
