@@ -10,6 +10,7 @@
 <c:set var="enAlumnos"      value="${fn:contains(accion, 'Alumno')}"/>
 <c:set var="enMatricular"   value="${accion == 'matricular'}"/>
 <c:set var="enUsuarios"     value="${fn:contains(accion, 'Usuario')}"/>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
 <nav class="topbar" aria-label="Principal">
     <div class="topbar-brand">Gestión Universitaria</div>
     <div class="topbar-links">

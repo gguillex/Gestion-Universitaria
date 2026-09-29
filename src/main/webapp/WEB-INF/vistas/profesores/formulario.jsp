@@ -10,6 +10,7 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
+    <main id="contenido" tabindex="-1">
 
     <h2><c:choose><c:when test="${profesor.id > 0}">Editar profesor</c:when><c:otherwise>Nuevo profesor</c:otherwise></c:choose></h2>
 
@@ -32,5 +33,6 @@
         </div>
     </form>
 
+    </main>
 </body>
 </html>

@@ -10,6 +10,7 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
+    <main id="contenido" tabindex="-1">
 
     <h2>Asignaturas</h2>
 
@@ -66,5 +67,6 @@
         </c:if>
     </table>
 
+    </main>
 </body>
 </html>

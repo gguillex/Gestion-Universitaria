@@ -10,6 +10,7 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
+    <main id="contenido" tabindex="-1">
 
     <h2>Alumnos matriculados en: <c:out value="${asignatura.nombre}"/></h2>
 
@@ -67,5 +68,6 @@
         </c:if>
     </table>
 
+    </main>
 </body>
 </html>

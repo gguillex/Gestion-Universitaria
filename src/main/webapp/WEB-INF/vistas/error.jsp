@@ -10,6 +10,7 @@
 </head>
 <body>
     <jsp:include page="menu.jsp"/>
+    <main id="contenido" tabindex="-1">
     <h2>Se ha producido un error</h2>
     <p class="error" role="alert">
         <c:out value="${error}" default="Error desconocido"/>
@@ -17,5 +18,6 @@
     <p class="toolbar">
         <a href="${pageContext.request.contextPath}/control?idAccion=listarTitulaciones">Volver al inicio</a>
     </p>
+    </main>
 </body>
 </html>

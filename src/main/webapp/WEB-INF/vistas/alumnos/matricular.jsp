@@ -10,6 +10,7 @@
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
+    <main id="contenido" tabindex="-1">
 
     <h2>Matricular alumno en asignatura</h2>
 
@@ -23,7 +24,7 @@
             <select name="idAlumno" required autofocus>
                 <option value="">— selecciona alumno —</option>
                 <c:forEach var="a" items="${alumnos}">
-                    <option value="${a.id}"><c:out value="${a.nombre}"/></option>
+                    <option value="${a.id}" ${param.idAlumno == a.id ? 'selected' : ''}><c:out value="${a.nombre}"/></option>
                 </c:forEach>
             </select>
             <span class="campo-error">Elige el alumno que se va a matricular.</span>
@@ -32,7 +33,7 @@
             <select name="idAsignatura" required>
                 <option value="">— selecciona asignatura —</option>
                 <c:forEach var="as" items="${asignaturas}">
-                    <option value="${as.id}">
+                    <option value="${as.id}" ${param.idAsignatura == as.id ? 'selected' : ''}>
                         <c:out value="${as.nombre}"/> (cap. ${as.capacidadMaxima})
                     </option>
                 </c:forEach>
@@ -45,5 +46,6 @@
         </div>
     </form>
 
+    </main>
 </body>
 </html>
