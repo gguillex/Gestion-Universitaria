@@ -4,7 +4,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Matricular alumno</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Matricular · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
@@ -12,22 +13,22 @@
 
     <h2>Matricular alumno en asignatura</h2>
 
-    <c:if test="${not empty error}"><p class="error"><c:out value="${error}"/></p></c:if>
+    <c:if test="${not empty error}"><p class="error" role="alert"><c:out value="${error}"/></p></c:if>
 
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="matricular">
         <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 
-        <label>Alumno:
-            <select name="idAlumno" required>
+        <label>Alumno
+            <select name="idAlumno" required autofocus>
                 <option value="">— selecciona alumno —</option>
                 <c:forEach var="a" items="${alumnos}">
                     <option value="${a.id}"><c:out value="${a.nombre}"/></option>
                 </c:forEach>
             </select>
+            <span class="campo-error">Elige el alumno que se va a matricular.</span>
         </label>
-
-        <label>Asignatura:
+        <label>Asignatura
             <select name="idAsignatura" required>
                 <option value="">— selecciona asignatura —</option>
                 <c:forEach var="as" items="${asignaturas}">
@@ -36,10 +37,12 @@
                     </option>
                 </c:forEach>
             </select>
+            <span class="campo-error">Elige la asignatura.</span>
         </label>
-
-        <button type="submit">Matricular</button>
-        <a href="${pageContext.request.contextPath}/control?idAccion=listarAlumnos">Cancelar</a>
+        <div class="acciones-form">
+            <button type="submit">Matricular</button>
+            <a href="${pageContext.request.contextPath}/control?idAccion=listarAlumnos">Cancelar</a>
+        </div>
     </form>
 
 </body>

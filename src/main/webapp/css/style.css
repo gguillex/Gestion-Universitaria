@@ -633,6 +633,35 @@ table td.vacio a:hover { background: var(--c-accion-hover); color: var(--c-tinta
 /* Celda sin dato: raya en lugar de hueco */
 td:empty::after { content: "\2014"; color: var(--c-texto-suave); }
 
+/* ---------- Ocupación de plazas de una asignatura ---------- */
+
+.ocupacion-bloque {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--e-2) var(--e-4);
+    margin: 0 0 var(--e-4);
+    font-family: var(--f-mono);
+    font-size: var(--t-sm);
+    color: var(--c-tinta);
+}
+progress.ocupacion {
+    appearance: none;
+    -webkit-appearance: none;
+    width: min(100%, 280px);
+    height: 16px;
+    border: var(--borde);
+    border-radius: var(--r-control);
+    background: var(--c-superficie);
+    overflow: hidden;
+}
+progress.ocupacion::-webkit-progress-bar { background: var(--c-superficie); }
+progress.ocupacion::-webkit-progress-value { background: var(--c-tinta); }
+progress.ocupacion::-moz-progress-bar { background: var(--c-tinta); }
+/* Asignatura completa: sin plazas, señal de límite con la franja */
+progress.ocupacion.llena::-webkit-progress-value { background: var(--franja); }
+progress.ocupacion.llena::-moz-progress-bar { background: var(--franja); }
+
 /* ---------- Validación visible en formularios ---------- */
 
 /* El mensaje de cada campo está en el marcado y solo se muestra cuando el
