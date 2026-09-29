@@ -18,44 +18,43 @@
     font-display: swap;
 }
 @font-face {
-    font-family: "Chivo Mono";
-    src: url("fonts/chivomono-latin.woff2") format("woff2");
-    font-weight: 400 600;
+    font-family: "Big Shoulders Display";
+    src: url("fonts/bigshoulders-latin.woff2") format("woff2");
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
 }
 
 :root {
     /* Color */
-    --c-fondo:        #f7f7f7;   /* blanco algodón neutro: el suelo de la página */
+    --c-fondo:        #f2f4f5;   /* concreto: el suelo de la página (neutro frío) */
     --c-superficie:   #ffffff;   /* algodón blanco: placas y paneles */
-    --c-placa:        #e2e2e2;   /* gris etiqueta: solo fondo de placas */
-    --c-tinta:        #0a0a0a;   /* tinta negra: texto, bordes, cabeceras */
-    --c-nailon:       #1a1a1a;   /* negro nailon: superficies oscuras */
-    --c-texto-suave:  #4a4a4a;   /* texto secundario (7:1 sobre blanco) */
+    --c-placa:        #dde3e6;   /* gris etiqueta: solo fondo de placas */
+    --c-tinta:        #0c1114;   /* tinta negra: texto, bordes, brida */
+    --c-nailon:       #161b1f;   /* negro nailon: superficies oscuras */
+    --c-texto-suave:  #4b565d;   /* texto secundario (6,8:1 sobre el suelo) */
     --c-texto-inverso:#ffffff;
-    --c-inverso-suave:#c9c9c9;   /* texto secundario sobre tinta */
-    --c-linea-suave:  #cfcfcf;   /* separadores entre filas */
-    --c-fila-hover:   #f5f5f5;
+    --c-inverso-suave:#c3ccd1;   /* texto secundario sobre tinta */
+    --c-linea-suave:  #ccd3d7;   /* separadores entre filas */
+    --c-fila-hover:   #f6f8f9;
     --c-accion:       #ff5a00;   /* naranja de seguridad (solo relleno) */
     --c-accion-hover: #e85200;
-    --c-seleccion:    #d9d9d9;   /* selección de texto: neutra, sin naranja */
+    --c-seleccion:    #cfd8dc;   /* selección de texto: neutra, sin naranja */
 
     /* Franja de peligro (negro/blanco a 45°) */
     --franja: repeating-linear-gradient(-45deg,
               var(--c-tinta) 0 5px, var(--c-superficie) 5px 10px);
 
     /* Tipografía */
-    --f-base:  "Archivo", system-ui, "Segoe UI", sans-serif;
-    --f-mono:  "Chivo Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-    --f-ancho-rotulo: 68%;       /* font-stretch de los rótulos condensados */
-    --t-xs:   0.6875rem;  /* 11px: rótulos mono */
+    --f-base:    "Archivo", system-ui, "Segoe UI", sans-serif;                 /* cuerpo, campos, botones */
+    --f-display: "Big Shoulders Display", "Arial Narrow", sans-serif;          /* rótulos, marca, datos */
+    --t-xs:   0.6875rem;  /* 11px: botones de fila */
+    --t-rotulo: 1.0625rem; /* 17px: rótulos en la display (equivale a ~13px en la base) */
     --t-sm:   0.8125rem;  /* 13px */
     --t-base: 0.9375rem;  /* 15px */
     --t-md:   1.0625rem;  /* 17px */
-    --t-titulo: clamp(2.25rem, 1.4rem + 3.2vw, 3.75rem);
-    --t-marca:  clamp(3rem, 1.6rem + 6vw, 6rem);
-    --tracking-rotulo: 0.08em;
+    --t-titulo: clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem);
+    --t-marca:  clamp(3.5rem, 1.5rem + 7vw, 6rem);
 
     /* Espaciado (un solo ritmo) */
     --e-1: 4px;
@@ -76,7 +75,7 @@
     --ancho-pagina: 1280px;
 
     /* Profundidad: desplazamiento + desenfoque suave */
-    --sombra-placa: 0 1px 0 rgba(10, 10, 10, .06), 0 10px 24px -14px rgba(10, 10, 10, .35);
+    --sombra-placa: 0 1px 0 rgba(12, 17, 20, .06), 0 10px 24px -14px rgba(12, 17, 20, .35);
 
     /* Foco */
     --anillo-foco: 0 0 0 3px var(--c-accion);
@@ -111,12 +110,12 @@ h1, h2, h3 { line-height: 1.1; margin: 0; }
 
 /* Rótulo de sección: nombre literal, entre comillas, en mayúsculas condensadas */
 h2 {
+    font-family: var(--f-display);
     font-size: var(--t-titulo);
     font-weight: 800;
-    font-stretch: var(--f-ancho-rotulo);
     text-transform: uppercase;
-    letter-spacing: -0.01em;
-    line-height: 0.95;
+    letter-spacing: 0.005em;
+    line-height: 0.92;
     margin: var(--e-7) 0 var(--e-4);
     text-wrap: balance;
 }
@@ -145,12 +144,25 @@ a:hover { text-decoration-thickness: 2px; }
     min-height: 56px;
 }
 .topbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--e-3);
+    font-family: var(--f-display);
     font-weight: 800;
-    font-stretch: var(--f-ancho-rotulo);
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    line-height: 1;
     text-transform: uppercase;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
     white-space: nowrap;
+}
+/* El agujero de la etiqueta, en pequeño: enlaza la barra con el acceso */
+.topbar-brand::before {
+    content: "";
+    flex: none;
+    width: 13px;
+    height: 13px;
+    border: 3px solid var(--c-texto-inverso);
+    border-radius: 50%;
 }
 .topbar-links {
     display: flex;
@@ -163,12 +175,12 @@ a:hover { text-decoration-thickness: 2px; }
     display: inline-flex;
     align-items: center;
     min-height: 36px;
-    padding: 0 10px;
+    padding: 0 9px;
     border-radius: var(--r-control);
-    font-family: var(--f-mono);
-    font-size: var(--t-xs);
-    font-weight: 500;
-    letter-spacing: var(--tracking-rotulo);
+    font-family: var(--f-display);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     white-space: nowrap;
     color: var(--c-inverso-suave);
@@ -179,7 +191,7 @@ a:hover { text-decoration-thickness: 2px; }
 .topbar-links a[aria-current="page"] {
     background: var(--c-accion);
     color: var(--c-tinta);
-    font-weight: 600;
+    font-weight: 700;
 }
 .topbar-links a[aria-current="page"]:hover { background: var(--c-accion-hover); color: var(--c-tinta); }
 .topbar-user {
@@ -198,15 +210,16 @@ a:hover { text-decoration-thickness: 2px; }
 /* Placa de rol (admin / usuario) */
 .badge {
     display: inline-block;
-    font-family: var(--f-mono);
-    font-size: var(--t-xs);
-    font-weight: 600;
-    letter-spacing: var(--tracking-rotulo);
+    font-family: var(--f-display);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     background: var(--c-placa);
     color: var(--c-tinta);
     border-radius: var(--r-control);
-    padding: 2px var(--e-2);
+    padding: 1px var(--e-2);
 }
 
 /* Rol con más permisos: placa invertida (tinta) */
@@ -260,10 +273,10 @@ th, td {
 th {
     background: var(--c-nailon);
     color: var(--c-texto-inverso);
-    font-family: var(--f-mono);
-    font-size: var(--t-xs);
-    font-weight: 500;
-    letter-spacing: var(--tracking-rotulo);
+    font-family: var(--f-display);
+    font-size: var(--t-rotulo);
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     border-bottom: none;
 }
@@ -274,10 +287,12 @@ td em { color: var(--c-texto-suave); }
 /* Placa de identificador de un registro */
 .placa {
     display: inline-block;
-    min-width: 3.5em;
-    font-family: var(--f-mono);
-    font-size: var(--t-sm);
-    font-weight: 500;
+    min-width: 3em;
+    font-family: var(--f-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.35;
+    font-variant-numeric: tabular-nums;
     text-align: center;
     background: var(--c-placa);
     border: 1px solid var(--c-tinta);
@@ -354,12 +369,13 @@ form.form-borrar {
     .tabla-placas td[data-label]::before {
         content: attr(data-label);
         display: block;
-        font-family: var(--f-mono);
-        font-size: var(--t-xs);
-        letter-spacing: var(--tracking-rotulo);
+        font-family: var(--f-display);
+        font-size: var(--t-rotulo);
+        font-weight: 600;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         color: var(--c-texto-suave);
-        margin-bottom: 2px;
+        margin-bottom: 0;
     }
     /* El ID va como placa en la esquina, sin rótulo */
     .tabla-placas td.celda-id {
@@ -405,11 +421,9 @@ form {
 form label {
     display: block;
     margin-top: var(--e-4);
-    font-family: var(--f-mono);
-    font-size: var(--t-xs);
-    font-weight: 500;
-    letter-spacing: var(--tracking-rotulo);
-    text-transform: uppercase;
+    font-family: var(--f-base);
+    font-size: var(--t-sm);
+    font-weight: 600;
     color: var(--c-texto-suave);
 }
 form label:first-of-type { margin-top: 0; }
@@ -464,7 +478,7 @@ button[type="submit"]:active { transform: translateY(1px); }
 button[type="submit"]:focus-visible { box-shadow: 0 0 0 3px var(--c-superficie), 0 0 0 6px var(--c-tinta); }
 button[type="submit"]:disabled {
     background: var(--c-placa);
-    border-color: rgba(10, 10, 10, .4);
+    border-color: rgba(12, 17, 20, .4);
     color: var(--c-texto-suave);
     cursor: not-allowed;
 }
@@ -498,10 +512,11 @@ button[type="submit"]:focus-visible .flecha { transform: translateX(4px); }
 .error::before, .alert-error::before,
 .ok::before, .alert-success::before {
     display: block;
-    font-size: 1rem;
+    font-family: var(--f-display);
+    font-size: 1.1875rem;
     font-weight: 800;
-    font-stretch: var(--f-ancho-rotulo);
-    letter-spacing: 0.04em;
+    line-height: 1.1;
+    letter-spacing: 0.06em;
     margin-bottom: 2px;
 }
 /* Error: registro de peligro, con la franja en el borde superior */
@@ -541,16 +556,16 @@ body.auth form { width: 100%; max-width: 380px; }
     align-items: center;
 }
 .auth-titulo {
+    font-family: var(--f-display);
     font-size: var(--t-marca);
     font-weight: 900;
-    font-stretch: var(--f-ancho-rotulo);
-    line-height: 0.88;
-    letter-spacing: -0.015em;
+    line-height: 0.86;
+    letter-spacing: 0;
     text-transform: uppercase;
     margin: 0 0 var(--e-5);
 }
 
-/* Placa de datos: pares rótulo / valor en mono */
+/* Placa de datos: pares rótulo / valor */
 .placa-datos {
     display: inline-grid;
     grid-template-columns: auto auto;
@@ -561,34 +576,74 @@ body.auth form { width: 100%; max-width: 380px; }
     background: var(--c-placa);
     border: var(--borde);
     border-radius: var(--r-placa);
-    font-family: var(--f-mono);
-    font-size: var(--t-xs);
-    letter-spacing: 0.04em;
+    font-family: var(--f-display);
+    font-size: var(--t-rotulo);
+    font-weight: 500;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
 }
 .placa-datos dt { color: var(--c-texto-suave); }
 .placa-datos dt::after { content: ":"; }
-.placa-datos dd { margin: 0; font-weight: 600; }
+.placa-datos dd { margin: 0; font-weight: 700; }
 
-/* Panel de acceso: cabecera en tinta + formulario */
+/* Panel de acceso: una etiqueta de bridas. La cabecera lleva el agujero perforado
+   y una brida negra la cuelga; se balancea una sola vez al cargar. */
 .auth-panel {
+    position: relative;
+    margin-top: 60px; /* espacio para la brida */
     background: var(--c-superficie);
     border: var(--borde);
     border-radius: var(--r-placa);
     box-shadow: var(--sombra-placa);
-    overflow: hidden;
+    transform-origin: 29px -24px;
+    animation: etiqueta-balanceo 1300ms var(--ease-salida) 350ms both;
+}
+/* Brida: cinta que sube desde el agujero */
+.auth-panel::before {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 26px;
+    top: -46px;
+    width: 6px;
+    height: 78px;
+    background: var(--c-tinta);
+    border-radius: 3px;
+}
+/* Cabeza de la brida */
+.auth-panel::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: 22px;
+    top: -60px;
+    width: 14px;
+    height: 20px;
+    background: var(--c-tinta);
+    border-radius: 3px;
+}
+@keyframes etiqueta-balanceo {
+    0%   { transform: rotate(-3.5deg); }
+    30%  { transform: rotate(2.2deg); }
+    55%  { transform: rotate(-1.2deg); }
+    78%  { transform: rotate(0.5deg); }
+    100% { transform: rotate(0); }
 }
 .auth-panel h2 {
     margin: 0;
-    padding: var(--e-3) var(--e-5);
-    background: var(--c-nailon);
+    padding: var(--e-3) var(--e-5) var(--e-3) 58px;
+    border-radius: calc(var(--r-placa) - 1px) calc(var(--r-placa) - 1px) 0 0;
+    /* el agujero perforado: deja ver el suelo, con un anillo tenue de material */
+    background:
+        radial-gradient(circle at 29px 50%, var(--c-fondo) 0 7px, transparent 7.5px),
+        radial-gradient(circle at 29px 50%, transparent 0 7px, rgba(255, 255, 255, .22) 7px 9px, transparent 9.5px),
+        var(--c-nailon);
     color: var(--c-texto-inverso);
-    font-family: var(--f-base);
-    font-size: 1.25rem;
+    font-family: var(--f-display);
+    font-size: 1.75rem;
     font-weight: 800;
-    font-stretch: var(--f-ancho-rotulo);
-    letter-spacing: 0.02em;
-    line-height: 1.2;
+    letter-spacing: 0.03em;
+    line-height: 1.1;
 }
 .auth-panel .auth-cuerpo { padding: var(--e-5); }
 .auth-panel .error, .auth-panel .ok { margin: 0 0 var(--e-4); }
@@ -614,11 +669,12 @@ body.auth form { width: 100%; max-width: 380px; }
 td.vacio { padding: var(--e-7) var(--e-5); }
 .vacio-titulo {
     display: block;
-    font-size: 1.5rem;
+    font-family: var(--f-display);
+    font-size: 2rem;
     font-weight: 800;
-    font-stretch: var(--f-ancho-rotulo);
     text-transform: uppercase;
-    line-height: 1.1;
+    letter-spacing: 0.02em;
+    line-height: 1;
 }
 .vacio-titulo::before { content: "\201C"; }
 .vacio-titulo::after  { content: "\201D"; }
@@ -644,8 +700,10 @@ td:empty::after { content: "\2014"; color: var(--c-texto-suave); }
     flex-wrap: wrap;
     gap: var(--e-2) var(--e-4);
     margin: 0 0 var(--e-4);
-    font-family: var(--f-mono);
+    font-family: var(--f-base);
     font-size: var(--t-sm);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
     color: var(--c-tinta);
 }
 progress.ocupacion {
@@ -758,4 +816,5 @@ form textarea:user-invalid ~ .campo-error { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition-duration: 0.01ms !important; }
+    .auth-panel { animation: none; }
 }
