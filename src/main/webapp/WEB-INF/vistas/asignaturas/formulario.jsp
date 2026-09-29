@@ -18,7 +18,7 @@
     </h2>
 
     <c:if test="${not empty error}">
-        <p style="color: red;">${error}</p>
+        <p class="error"><c:out value="${error}"/></p>
     </c:if>
 
     <form action="${pageContext.request.contextPath}/control" method="post">

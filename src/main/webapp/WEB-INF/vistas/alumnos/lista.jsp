@@ -18,8 +18,8 @@
         <a href="${pageContext.request.contextPath}/control?idAccion=listarAlumnos">Refrescar</a>
     </p>
 
-    <c:if test="${not empty mensaje}"><p class="ok">${mensaje}</p></c:if>
-    <c:if test="${not empty error}"><p class="error">${error}</p></c:if>
+    <c:if test="${not empty mensaje}"><p class="ok"><c:out value="${mensaje}"/></p></c:if>
+    <c:if test="${not empty error}"><p class="error"><c:out value="${error}"/></p></c:if>
 
     <table>
         <tr>

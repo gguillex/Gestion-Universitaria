@@ -18,10 +18,10 @@
     </p>
 
     <c:if test="${not empty mensaje}">
-        <p class="ok">${mensaje}</p>
+        <p class="ok"><c:out value="${mensaje}"/></p>
     </c:if>
     <c:if test="${not empty error}">
-        <p class="error">${error}</p>
+        <p class="error"><c:out value="${error}"/></p>
     </c:if>
 
     <table>

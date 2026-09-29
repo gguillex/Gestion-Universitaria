@@ -12,7 +12,7 @@
     <h2>Crear cuenta</h2>
 
     <c:if test="${not empty errorRegistro}">
-        <p class="error">${errorRegistro}</p>
+        <p class="error"><c:out value="${errorRegistro}"/></p>
     </c:if>
 
     <form action="${pageContext.request.contextPath}/control" method="post">

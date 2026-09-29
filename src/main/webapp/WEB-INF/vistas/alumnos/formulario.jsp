@@ -17,7 +17,7 @@
         </c:choose>
     </h2>
 
-    <c:if test="${not empty error}"><p class="error">${error}</p></c:if>
+    <c:if test="${not empty error}"><p class="error"><c:out value="${error}"/></p></c:if>
 
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="guardarAlumno">

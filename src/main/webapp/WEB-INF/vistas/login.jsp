@@ -12,7 +12,7 @@
     <h2>Iniciar sesión</h2>
 
     <c:if test="${not empty errorLogin}">
-        <p class="error">${errorLogin}</p>
+        <p class="error"><c:out value="${errorLogin}"/></p>
     </c:if>
 
     <c:if test="${not empty param.registroOk}">
