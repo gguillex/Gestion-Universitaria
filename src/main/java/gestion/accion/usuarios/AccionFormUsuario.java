@@ -24,7 +24,10 @@ public class AccionFormUsuario implements Accion {
         if (idParam != null && !idParam.isEmpty()) {
             UsuarioDAO dao = new UsuarioDAO();
             Usuario encontrado = dao.buscarPorId(Integer.parseInt(idParam));
-            if (encontrado != null) u = encontrado;
+            if (encontrado != null) {
+                encontrado.setPassword(null); // el hash no se envía a la vista
+                u = encontrado;
+            }
         }
         request.setAttribute("usuario", u);
         return "/WEB-INF/vistas/usuarios/formulario.jsp";

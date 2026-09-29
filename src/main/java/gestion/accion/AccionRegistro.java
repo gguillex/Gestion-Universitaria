@@ -2,6 +2,7 @@ package gestion.accion;
 
 import gestion.bean.Usuario;
 import gestion.modelo.UsuarioDAO;
+import gestion.util.Passwords;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -52,7 +53,7 @@ public class AccionRegistro implements Accion {
         // Crear usuario con rol "usuario" (nunca admin desde autoregistro)
         Usuario nuevo = new Usuario();
         nuevo.setNombre(nombre.trim());
-        nuevo.setPassword(password);
+        nuevo.setPassword(Passwords.hashear(password));
         nuevo.setRol("usuario");
         try {
             dao.insertar(nuevo);

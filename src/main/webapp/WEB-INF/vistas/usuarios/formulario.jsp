@@ -28,9 +28,18 @@
         <label>Nombre:
             <input type="text" name="nombre" value="<c:out value='${usuario.nombre}'/>" required>
         </label>
-        <label>Contraseña:
-            <input type="text" name="password" value="<c:out value='${usuario.password}'/>" required>
-        </label>
+        <c:choose>
+            <c:when test="${usuario.id > 0}">
+                <label>Nueva contraseña (vacía = no cambiarla):
+                    <input type="password" name="password" autocomplete="new-password">
+                </label>
+            </c:when>
+            <c:otherwise>
+                <label>Contraseña:
+                    <input type="password" name="password" autocomplete="new-password" required>
+                </label>
+            </c:otherwise>
+        </c:choose>
         <label>Rol:
             <select name="rol">
                 <option value="usuario" ${usuario.rol == 'usuario' ? 'selected' : ''}>usuario</option>

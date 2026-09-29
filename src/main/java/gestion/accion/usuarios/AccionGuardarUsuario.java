@@ -3,6 +3,7 @@ package gestion.accion.usuarios;
 import gestion.accion.Accion;
 import gestion.bean.Usuario;
 import gestion.modelo.UsuarioDAO;
+import gestion.util.Passwords;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -23,33 +24,48 @@ public class AccionGuardarUsuario implements Accion {
         String password  = request.getParameter("password");
         String rol       = request.getParameter("rol");
 
-        if (rol == null || rol.isEmpty()) rol = "usuario";
+        // Solo se admiten los dos roles conocidos
+        if (!"admin".equals(rol)) rol = "usuario";
 
         Usuario u = new Usuario();
         u.setNombre(nombre);
-        u.setPassword(password);
         u.setRol(rol);
         boolean esEdicion = idParam != null && !idParam.isEmpty();
         if (esEdicion) u.setId(Integer.parseInt(idParam));
 
-        // Validación de campos obligatorios (el atributo HTML "required" es del lado
-        // cliente y se puede saltar con una petición directa al servlet)
-        if (nombre == null || nombre.trim().isEmpty() ||
-            password == null || password.trim().isEmpty()) {
-            request.setAttribute("error", "El nombre y la contraseña son obligatorios.");
+        // En edición la contraseña es opcional: vacía = conservar la actual.
+        // Al crear es obligatoria. (El "required" HTML se puede saltar con una
+        // petición directa al servlet, por eso se valida aquí.)
+        boolean sinPassword = password == null || password.trim().isEmpty();
+        if (nombre == null || nombre.trim().isEmpty() || (!esEdicion && sinPassword)) {
+            request.setAttribute("error", esEdicion
+                    ? "El nombre es obligatorio."
+                    : "El nombre y la contraseña son obligatorios.");
             request.setAttribute("usuario", u);
             return "/WEB-INF/vistas/usuarios/formulario.jsp";
         }
 
         UsuarioDAO dao = new UsuarioDAO();
         if (esEdicion) {
+            if (sinPassword) {
+                Usuario actual = dao.buscarPorId(u.getId());
+                if (actual == null) {
+                    response.sendRedirect(request.getContextPath() + "/control?idAccion=listarUsuarios");
+                    return null;
+                }
+                u.setPassword(actual.getPassword());
+            } else {
+                u.setPassword(Passwords.hashear(password));
+            }
             dao.actualizar(u);
             // Si el admin se está editando a sí mismo, refrescar el bean en sesión:
             // si no, el rol/nombre antiguos seguirían aplicándose hasta el logout.
             if (u.getId() == logueado.getId()) {
+                u.setPassword(null); // el hash nunca viaja en la sesión
                 sesion.setAttribute("usuarioLogueado", u);
             }
         } else {
+            u.setPassword(Passwords.hashear(password));
             dao.insertar(u);
         }
 
