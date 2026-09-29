@@ -1,34 +1,65 @@
 ---
 name: Sistema de Gestión Universitaria
-description: Almacén bien rotulado, traducido a sobrio: fondo claro, tinta negra, rótulos entre comillas y placas de etiqueta.
+description: Almacén bien rotulado, traducido a sobrio: neutros fríos, tinta negra, rótulos condensados entre comillas y placas de etiqueta; el acceso es una etiqueta de bridas.
 colors:
-  fondo: "#f7f7f7"
+  fondo: "#f2f4f5"
   superficie: "#ffffff"
-  placa: "#e2e2e2"
-  tinta: "#0a0a0a"
-  nailon: "#1a1a1a"
-  texto-suave: "#4a4a4a"
-  inverso-suave: "#c9c9c9"
-  linea-suave: "#cfcfcf"
-  fila-hover: "#f5f5f5"
-  seleccion: "#d9d9d9"
+  placa: "#dde3e6"
+  tinta: "#0c1114"
+  nailon: "#161b1f"
+  texto-suave: "#4b565d"
+  inverso-suave: "#c3ccd1"
+  linea-suave: "#ccd3d7"
+  fila-hover: "#f6f8f9"
+  seleccion: "#cfd8dc"
   accion: "#ff5a00"
   accion-hover: "#e85200"
 typography:
   marca:
-    fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
-    fontSize: "clamp(3rem, 1.6rem + 6vw, 6rem)"
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "clamp(3.5rem, 1.5rem + 7vw, 6rem)"
     fontWeight: 900
-    lineHeight: 0.88
-    letterSpacing: "-0.015em"
-    fontVariation: "font-stretch 68%"
+    lineHeight: 0.86
+    letterSpacing: "0"
   titulo:
-    fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
-    fontSize: "clamp(2.25rem, 1.4rem + 3.2vw, 3.75rem)"
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem)"
     fontWeight: 800
-    lineHeight: 0.95
-    letterSpacing: "-0.01em"
-    fontVariation: "font-stretch 68%"
+    lineHeight: 0.92
+    letterSpacing: "0.005em"
+  titulo-panel:
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "1.75rem"
+    fontWeight: 800
+    lineHeight: 1.1
+    letterSpacing: "0.03em"
+  titulo-vacio:
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "2rem"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "0.02em"
+  marca-barra:
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "1.5rem"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "0.02em"
+  rotulo:
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "1.0625rem"
+    fontWeight: 600
+    letterSpacing: "0.08em"
+  enlace-barra:
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 600
+    letterSpacing: "0.05em"
+  placa:
+    fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 700
+    lineHeight: 1.35
   cuerpo:
     fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
     fontSize: "0.9375rem"
@@ -39,16 +70,21 @@ typography:
     fontSize: "1.0625rem"
     fontWeight: 700
     lineHeight: 1.5
+  etiqueta-campo:
+    fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 600
+    lineHeight: 1.5
   boton:
     fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
     fontSize: "0.8125rem"
     fontWeight: 800
     letterSpacing: "0.06em"
-  rotulo-mono:
-    fontFamily: "Chivo Mono, ui-monospace, Cascadia Mono, Consolas, monospace"
+  boton-fila:
+    fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
     fontSize: "0.6875rem"
-    fontWeight: 500
-    letterSpacing: "0.08em"
+    fontWeight: 700
+    letterSpacing: "0.06em"
 rounded:
   control: "2px"
   placa: "3px"
@@ -80,6 +116,7 @@ components:
   boton-fila:
     backgroundColor: "{colors.superficie}"
     textColor: "{colors.tinta}"
+    typography: "{typography.boton-fila}"
     rounded: "{rounded.control}"
     height: "32px"
     padding: "0 12px"
@@ -89,18 +126,17 @@ components:
   cabecera-tabla:
     backgroundColor: "{colors.nailon}"
     textColor: "{colors.superficie}"
-    typography: "{typography.rotulo-mono}"
+    typography: "{typography.rotulo}"
     padding: "12px 16px"
   placa-id:
     backgroundColor: "{colors.placa}"
     textColor: "{colors.tinta}"
     rounded: "{rounded.control}"
-    typography: "{typography.rotulo-mono}"
+    typography: "{typography.placa}"
   badge:
     backgroundColor: "{colors.placa}"
     textColor: "{colors.tinta}"
     rounded: "{rounded.control}"
-    typography: "{typography.rotulo-mono}"
   badge-admin:
     backgroundColor: "{colors.tinta}"
     textColor: "{colors.superficie}"
@@ -119,6 +155,7 @@ components:
   topbar-enlace-activo:
     backgroundColor: "{colors.accion}"
     textColor: "{colors.tinta}"
+    typography: "{typography.enlace-barra}"
     rounded: "{rounded.control}"
     height: "36px"
   panel:
@@ -126,6 +163,11 @@ components:
     textColor: "{colors.tinta}"
     rounded: "{rounded.placa}"
     padding: "24px"
+  panel-acceso-cabecera:
+    backgroundColor: "{colors.nailon}"
+    textColor: "{colors.superficie}"
+    typography: "{typography.titulo-panel}"
+    padding: "12px 24px 12px 58px"
 ---
 
 # Design System: Sistema de Gestión Universitaria
@@ -136,75 +178,82 @@ components:
 
 Cada zona de la aplicación se nombra con su rótulo literal, entre comillas, y cada registro lleva su placa de etiqueta. Es la gramática industrial (rótulos condensados en mayúsculas, placas, franja de peligro) traducida a sobrio por decisión del usuario: fondo claro, tinta negra, sin fotos ni franjas decorativas, esquinas casi rectas y bordes de tinta. La interfaz es de trabajo (Operate): administración y profesorado gestionando registros en escritorio y móvil.
 
-La densidad es media y el orden es rígido: un solo ritmo de espaciado, un solo borde, una sola familia de controles. El color es casi ausente; la jerarquía la dan el peso, el ancho condensado y el contraste tinta/blanco. Se rechaza el panel SaaS de tarjetas blancas con acento índigo.
+La densidad es media y el orden es rígido: un solo ritmo de espaciado, un solo borde, una sola familia de controles. El color es casi ausente y los neutros son fríos (un matiz azulado, no grises puros); la jerarquía la dan el peso, la condensación de la display y el contraste tinta/blanco. Se rechaza el panel SaaS de tarjetas blancas con acento índigo.
+
+El detalle que la firma es la etiqueta de bridas: el panel de acceso es una etiqueta de almacén colgada de una brida negra, con el agujero perforado en su cabecera; la marca de la barra repite ese agujero en pequeño.
 
 **Key Characteristics:**
-- Paleta neutra (blanco algodón, tinta, gris etiqueta) con un único color de señal, el naranja de seguridad.
-- Rótulos de sección en mayúsculas condensadas entre comillas tipográficas.
+- Neutros fríos (concreto, blanco algodón, gris etiqueta, tinta y nailon) con un único color de señal, el naranja de seguridad.
+- Rótulos en Big Shoulders Display condensada en mayúsculas; los de sección, entre comillas tipográficas.
 - Bordes de 1,5 px en tinta; radios de 2 y 3 px.
 - Franja diagonal negra/blanca reservada al peligro y al límite.
+- Etiqueta de bridas en el acceso, con un único balanceo al cargar.
 - Fuentes propias servidas desde /css/fonts/; sin recursos externos.
 - Todo valor vive en variables de :root en css/style.css; los JSP no llevan estilo propio.
 
 ## Colors
 
-Paleta acromática de almacén con un solo naranja de señal; el negro y el gris hacen todo el trabajo estructural.
+Paleta de almacén de neutros fríos con un solo naranja de señal; el negro y el gris hacen todo el trabajo estructural.
 
 ### Primary
 - **Naranja de seguridad** (`accion`, #ff5a00; hover `accion-hover`, #e85200): relleno de la acción principal activa, siempre con texto negro encima. Aparece como relleno del primer botón de la barra de acciones, del botón de envío, del enlace activo de la barra y de la acción de un estado vacío; y como anillo de foco de 3 px en campos y enlaces.
 
 ### Neutral
-- **Blanco algodón neutro** (`fondo`, #f7f7f7): suelo de la página.
+- **Concreto** (`fondo`, #f2f4f5): suelo de la página; también se ve a través del agujero de la etiqueta.
 - **Algodón blanco** (`superficie`, #ffffff): tablas, formularios, paneles, avisos.
-- **Gris etiqueta** (`placa`, #e2e2e2): solo fondo de placas (ID, rol, placa de datos, botón deshabilitado).
-- **Tinta negra** (`tinta`, #0a0a0a): texto, bordes, placa de rol admin, relleno de hover en acciones de fila.
-- **Negro nailon** (`nailon`, #1a1a1a): superficies oscuras: barra superior, cabecera de tabla, cabecera del panel de acceso.
-- **Texto suave** (`texto-suave`, #4a4a4a): texto secundario y rótulos de campo (7:1 sobre blanco).
-- **Inverso suave** (`inverso-suave`, #c9c9c9): texto secundario sobre nailon.
-- **Línea suave** (`linea-suave`, #cfcfcf): separadores entre filas.
-- **Fila hover** (`fila-hover`, #f5f5f5) y **selección de texto** (`seleccion`, #d9d9d9): estados neutros, sin naranja.
+- **Gris etiqueta** (`placa`, #dde3e6): solo fondo de placas (ID, rol, placa de datos, botón deshabilitado).
+- **Tinta negra** (`tinta`, #0c1114): texto, bordes, placa de rol admin, brida de la etiqueta, relleno de hover en acciones de fila.
+- **Negro nailon** (`nailon`, #161b1f): superficies oscuras: barra superior, cabecera de tabla, cabecera del panel de acceso.
+- **Texto suave** (`texto-suave`, #4b565d): texto secundario y rótulos de campo (6,8:1 sobre el suelo).
+- **Inverso suave** (`inverso-suave`, #c3ccd1): texto secundario sobre nailon.
+- **Línea suave** (`linea-suave`, #ccd3d7): separadores entre filas.
+- **Fila hover** (`fila-hover`, #f6f8f9) y **selección de texto** (`seleccion`, #cfd8dc): estados neutros, sin naranja.
 
 ### Named Rules
-**The Solo Relleno Rule.** El naranja es relleno de la acción activa o anillo de foco. Nunca es texto, borde, icono ni decoración.
+**The Solo Relleno Rule.** El naranja es relleno de la acción activa o anillo de foco. Nunca es texto, borde, icono ni decoración; tampoco es el color de la brida.
 **The Franja De Peligro Rule.** La franja diagonal negra/blanca a 45° (10 px de periodo) significa peligro o límite: botón de borrar, aviso de error, campo inválido, marca del mensaje de campo, asignatura completa. No se usa como adorno.
 
 ## Typography
 
-**Display/Body Font:** Archivo variable (ejes de peso 400-900 y de ancho 62%-125%), con fallback system-ui, Segoe UI, sans-serif.
-**Label/Mono Font:** Chivo Mono (400-600), con fallback ui-monospace, Cascadia Mono, Consolas.
+**Display Font:** Big Shoulders Display variable (peso 100-900), con fallback Arial Narrow, sans-serif.
+**Body Font:** Archivo variable (peso 400-900), con fallback system-ui, Segoe UI, sans-serif.
 
-**Character:** Archivo condensado (ancho 68%) en mayúsculas pesadas da el rótulo industrial; Chivo Mono da las etiquetas de campo, cabeceras y placas. El cuerpo es Archivo normal, legible y sobrio.
+**Character:** la display, estrecha y de hombros altos, da el rótulo industrial: marca, títulos, enlaces de barra, cabeceras de tabla, placas y rótulos de las placas móviles. Archivo en ancho normal queda para lo que se lee y se pulsa: cuerpo, campos, botones y rótulos de campo, ahora en frase normal.
 
 ### Hierarchy
-- **Marca** (900, clamp(3rem, 1.6rem + 6vw, 6rem), 0.88): solo el título de la hoja de acceso.
-- **Título de sección** (800, clamp(2.25rem, 1.4rem + 3.2vw, 3.75rem), 0.95, mayúsculas, ancho 68%): el h2 de cada página, siempre entre comillas.
-- **Título de panel** (800, 1.25rem, ancho 68%): h2 del panel de acceso, sobre nailon; hereda las comillas del h2.
-- **Cuerpo** (400, 0.9375rem, 1.5): texto, celdas.
-- **Cuerpo destacado** (700, 1.0625rem): celda principal en placas móviles.
-- **Botón** (800, 0.8125rem, 0.06em, mayúsculas): botón de envío; los botones de barra y de formulario usan 700 con 0.04em.
-- **Rótulo mono** (500, 0.6875rem, 0.08em, mayúsculas): cabeceras de tabla, etiquetas de campo, enlaces de la barra, placas.
+- **Marca** (display 900, clamp(3.5rem, 1.5rem + 7vw, 6rem), 0.86, mayúsculas): solo el título de la hoja de acceso.
+- **Título de sección** (display 800, clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem), 0.92, mayúsculas): el h2 de cada página, siempre entre comillas.
+- **Título de panel** (display 800, 1.75rem, 1.1, 0.03em): h2 del panel de acceso, sobre nailon; hereda las comillas del h2.
+- **Título de estado vacío** (display 800, 2rem, 1, 0.02em, entre comillas).
+- **Marca de barra** (display 800, 1.5rem, 0.02em, mayúsculas) y **enlaces de barra** (display 600, 1rem, 0.05em; el activo 700).
+- **Rótulo** (display 600, 1.0625rem, 0.08em, mayúsculas): cabeceras de tabla y etiquetas de las placas móviles; la placa de datos usa 500 con 0.06em, y el rótulo de los avisos 800 a 1.1875rem.
+- **Placa** (display 700, 1.125rem, cifras tabulares): identificador de registro; la placa de rol (badge) usa 700 a 0.9375rem con 0.08em.
+- **Cuerpo** (Archivo 400, 0.9375rem, 1.5): texto, celdas.
+- **Cuerpo destacado** (Archivo 700, 1.0625rem): celda principal en placas móviles.
+- **Rótulo de campo** (Archivo 600, 0.8125rem, texto suave, frase normal).
+- **Botón** (Archivo 800, 0.8125rem, 0.06em, mayúsculas): botón de envío; los de barra y pie de formulario usan 700 con 0.04em; los de fila, 700 a 0.6875rem.
 
 ### Named Rules
-**The Rótulo Entre Comillas Rule.** Un nombre de zona (h2, título de estado vacío, cabecera de aviso) se escribe en mayúsculas condensadas y entre comillas tipográficas “ ”, generadas con ::before/::after, no escritas en el marcado.
-**The Mono Es Dato Rule.** Chivo Mono solo para identificadores, rótulos de campo, cabeceras y placas; nunca para texto corrido.
+**The Rótulo Entre Comillas Rule.** Un nombre de zona (h2, título de estado vacío, cabecera de aviso) se escribe en mayúsculas de la display y entre comillas tipográficas “ ”, generadas con ::before/::after, no escritas en el marcado.
+**The Display Es Rótulo Rule.** Big Shoulders Display solo para rótulos, marca, identificadores, cabeceras y placas: texto corto en mayúsculas; nunca para texto corrido, campos ni botones, que son Archivo.
 **The Dieciséis Rule.** Los campos de formulario usan 1rem (16 px) para evitar el zoom automático en iOS.
 
 ## Layout
 
 Página centrada de 1280 px máximo con relleno de 24/32 px (16 px bajo 720 px). Un solo ritmo de espaciado: 4, 8, 12, 16, 24, 32, 48, 64 px. Objetivo táctil mínimo de 44 px (`alto-control`); acciones de fila de 32 px en escritorio y 44 px en móvil.
 
-Estructura de página interna: barra superior, h2 con 48 px de margen superior, barra de acciones, avisos, tabla o formulario (máximo 480 px). La acceso usa cuadrícula de dos columnas (1.15fr y panel de 320-400 px, hueco de 48 px, máximo 1040 px), apilada bajo 860 px.
+Estructura de página interna: barra superior, h2 con 48 px de margen superior, barra de acciones, avisos, tabla o formulario (máximo 480 px). El acceso usa cuadrícula de dos columnas (1.15fr y panel de 320-400 px, hueco de 48 px, máximo 1040 px), apilada bajo 860 px; el panel deja 60 px sobre sí para la brida.
 
-Puntos de ruptura observados: 1240 px (la barra pasa a dos filas y los enlaces forman una tira desplazable con difuminado a la derecha; el JSP de menú centra el enlace activo), 860 px (acceso apilado), 720 px (relleno y márgenes reducidos, botones de barra a ancho completo), 640 px (las tablas con .tabla-placas se convierten en placas), 480 px (botones de formulario a 100%).
+Puntos de ruptura observados: 1240 px (por encima la barra cabe en una fila; por debajo pasa a dos filas y los enlaces forman una tira desplazable con difuminado a la derecha), 860 px (acceso apilado), 720 px (relleno y márgenes reducidos, botones de barra a ancho completo), 640 px (las tablas con .tabla-placas se convierten en placas), 480 px (botones de formulario a 100%).
 
-En móvil cada fila de una tabla-placas es una placa: borde de tinta, ID como placa en la esquina superior derecha con prefijo «ID», celda principal en 17 px/700, resto con etiqueta mono (data-label) y acciones a ancho completo tras una línea suave.
+En móvil cada fila de una tabla-placas es una placa: borde de tinta, ID como placa en la esquina superior derecha con prefijo «ID», celda principal en 17 px/700, resto con rótulo de la display (data-label) y acciones a ancho completo tras una línea suave.
 
 ## Elevation & Depth
 
 Sistema plano con una sola sombra estructural. Los paneles y formularios se separan por borde de tinta de 1,5 px; la tabla, la barra y los avisos no llevan sombra. La profundidad se transmite por el contraste nailon/blanco.
 
 ### Shadow Vocabulary
-- **Placa** (`box-shadow: 0 1px 0 rgba(10,10,10,.06), 0 10px 24px -14px rgba(10,10,10,.35)`): solo formularios y el panel de acceso; desplazamiento con desenfoque suave.
+- **Placa** (`box-shadow: 0 1px 0 rgba(12,17,20,.06), 0 10px 24px -14px rgba(12,17,20,.35)`): solo formularios y el panel de acceso; desplazamiento con desenfoque suave.
 - **Anillo de foco** (`box-shadow: 0 0 0 3px #ff5a00`): foco visible en enlaces y campos. En botones de envío el foco es un doble anillo blanco 3 px + tinta 6 px.
 
 ### Named Rules
@@ -212,51 +261,56 @@ Sistema plano con una sola sombra estructural. Los paneles y formularios se sepa
 
 ## Shapes
 
-Esquinas casi rectas: 2 px en controles, placas de ID, badges y botones; 3 px en paneles, tablas, avisos y barra. Bordes de 1,5 px en tinta para todo contenedor y control; 1 px en línea suave para separadores de fila. La franja diagonal es la única geometría decorativa con significado. Excepción funcional: el indicador de campo inválido es un cuadrado de 12 px con franja.
+Esquinas casi rectas: 2 px en controles, placas de ID, badges y botones; 3 px en paneles, tablas, avisos y barra. Bordes de 1,5 px en tinta para todo contenedor y control; 1 px en línea suave para separadores de fila. La franja diagonal es la geometría decorativa con significado. Otras siluetas funcionales: el indicador de campo inválido (cuadrado de 12 px con franja) y el agujero circular de la etiqueta de bridas.
 
 ## Components
 
 ### Buttons
-- **Shape:** casi recto (2 px), borde de tinta 1,5 px, 44 px de alto, mayúsculas.
+- **Shape:** casi recto (2 px), borde de tinta 1,5 px, 44 px de alto, mayúsculas, Archivo.
 - **Principal:** relleno naranja, texto negro, peso 800, padding 0 24 px. Hover a #e85200; active baja 1 px; deshabilitado en gris etiqueta. Lleva la flecha SVG por máscara (`.flecha`, 18x12) que avanza 4 px en hover/foco.
 - **Secundario (barra de acciones y pie de formulario):** blanco con borde de tinta; hover a fila-hover. El primer botón de una barra de acciones (.toolbar) es naranja.
 - **Fila:** botones de 32 px; editar en blanco que se invierte a tinta en hover; borrar con franja de 10 px a la izquierda que también se invierte en hover.
 
 ### Cards / Containers
-- **Placa/Panel:** superficie blanca, borde de tinta, radio 3 px, sombra de placa, relleno 24 px. El panel de acceso lleva cabecera nailon con el título en blanco.
-- **Placa de datos:** rejilla de pares rótulo/valor en mono sobre gris etiqueta.
+- **Placa/Panel:** superficie blanca, borde de tinta, radio 3 px, sombra de placa, relleno 24 px.
+- **Placa de datos:** rejilla de pares rótulo/valor en la display sobre gris etiqueta; el rótulo en texto suave con dos puntos, el valor en 700.
 
 ### Inputs / Fields
-- **Style:** blanco, borde de tinta 1,5 px, radio 2 px, 44 px de alto; rótulo mono en mayúsculas sobre el campo.
+- **Style:** blanco, borde de tinta 1,5 px, radio 2 px, 44 px de alto; rótulo de campo en Archivo 600, 13 px, frase normal, sobre el campo.
 - **Focus:** anillo naranja de 3 px, sin contorno.
 - **Error:** el mensaje (.campo-error) está en el marcado y se muestra con :user-invalid tras la interacción; el campo gana una franja de 5 px en el borde inferior y el mensaje lleva un cuadrado con franja.
 
 ### Navigation
-Barra nailon con marca en mayúsculas condensadas, enlaces en mono, usuario con badge de rol y enlace de cierre. Enlace activo por aria-current="page": relleno naranja con texto negro. Hover: fondo blanco al 8%. Bajo 1240 px, dos filas con tira desplazable.
+Barra nailon con marca de la display en mayúsculas precedida de un anillo blanco pequeño (el agujero de la etiqueta), enlaces de la display en mayúsculas, usuario con badge de rol y enlace de cierre. Enlace activo por aria-current="page": relleno naranja con texto negro. Hover: fondo blanco al 8%. En una fila desde 1240 px; por debajo, dos filas con tira desplazable.
+
+### Etiqueta de bridas (componente firma)
+El panel de acceso (.auth-panel) es una etiqueta de almacén: cabecera nailon con el agujero perforado a la izquierda (círculo que deja ver el concreto, con un anillo tenue de material), y una brida negra (tinta, nunca naranja) que sube desde el agujero, hecha con ::before (cinta de 6x78 px) y ::after (cabeza de 14x20 px). Se balancea una sola vez al cargar (1300 ms, 350 ms de retardo, punto de giro en el agujero) y queda quieta; con prefers-reduced-motion no se anima. El cuerpo del panel lleva el formulario sin borde propio y el botón naranja a ancho completo con la flecha a la derecha.
 
 ### Tablas
-Cabecera nailon con rótulos mono en blanco, filas blancas con línea suave, hover fila-hover, cifras tabulares, celda vacía con raya (—). Estado vacío: título entre comillas, texto suave y acción naranja.
+Cabecera nailon con rótulos de la display en blanco, filas blancas con línea suave, hover fila-hover, cifras tabulares, celda vacía con raya (—). Estado vacío: título entre comillas, texto suave y acción naranja.
 
 ### Avisos
-.error y .ok: caja blanca con borde de tinta y rótulo “ERROR” / “HECHO” en mayúsculas condensadas; el error añade franja de 6 px en el borde superior. Llevan role="alert" y role="status" en las vistas.
+.error y .ok: caja blanca con borde de tinta y rótulo “ERROR” / “HECHO” en la display; el error añade franja de 6 px en el borde superior. Llevan role="alert" y role="status" en las vistas.
 
 ### Ocupación
-Barra `progress.ocupacion` (16 px, borde de tinta, relleno tinta) con texto mono al lado; cuando está llena el relleno es la franja.
+Barra `progress.ocupacion` (16 px, borde de tinta, relleno tinta) con texto de Archivo 600 al lado; cuando está llena el relleno es la franja.
 
 ## Do's and Don'ts
 
 ### Do:
 - **Do** usar naranja (#ff5a00) solo como relleno de la acción principal activa con texto negro, y como anillo de foco.
 - **Do** reservar la franja diagonal para peligro y límite: borrar, error, campo inválido, asignatura completa.
-- **Do** nombrar cada zona con un rótulo entre comillas generado por CSS, y dar a cada registro su placa de ID en mono.
+- **Do** nombrar cada zona con un rótulo entre comillas generado por CSS, y dar a cada registro su placa de ID en la display.
 - **Do** tomar toda medida de las variables de :root y reutilizar las clases existentes (.toolbar, .placa, .badge, .error, .ok, .tabla-placas, .acciones-form) antes de crear estilos por página.
 - **Do** dar a cada tabla nueva data-label y las clases celda-id, celda-principal, celda-acciones para que sea placa en móvil.
 - **Do** acompañar el estado con texto o forma, no solo con color; avisos con role="alert" o "status".
+- **Do** desactivar el balanceo de la etiqueta con prefers-reduced-motion y no repetirlo tras la carga.
 
 ### Don't:
-- **Don't** usar naranja como texto, borde o decoración, ni para varias acciones a la vez en una misma zona.
+- **Don't** usar naranja como texto, borde o decoración, ni para varias acciones a la vez en una misma zona, ni para la brida.
 - **Don't** usar la franja como adorno ni en superficies sin peligro.
-- **Don't** añadir fotos, ilustraciones, degradados decorativos ni fuentes de terceros.
+- **Don't** usar la display en campos, botones ni texto corrido, ni volver a mayúsculas monoespaciadas para los rótulos de campo.
+- **Don't** añadir fotos, ilustraciones, degradados decorativos ni fuentes cargadas de terceros.
 - **Don't** volver al panel SaaS de tarjetas blancas con acento índigo.
 - **Don't** añadir sombras duras desplazadas ni radios superiores a 3 px.
 - **Don't** poner `<style>` ni scriptlets en los JSP.
