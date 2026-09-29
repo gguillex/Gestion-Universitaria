@@ -7,12 +7,11 @@ import java.util.List;
 
 public class UsuarioDAO {
 
-    public Usuario validarCredenciales(String nombre, String password) throws Exception {
-        String sql = "SELECT id, nombre, password, rol FROM usuarios WHERE nombre = ? AND password = ?";
+    public Usuario buscarPorNombre(String nombre) throws Exception {
+        String sql = "SELECT id, nombre, password, rol FROM usuarios WHERE nombre = ?";
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, nombre);
-            ps.setString(2, password);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Usuario(
