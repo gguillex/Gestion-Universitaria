@@ -14,6 +14,7 @@
 
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="asignarProfesor">
+        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 
         <label>Asignatura:
             <select name="idAsignatura" required>

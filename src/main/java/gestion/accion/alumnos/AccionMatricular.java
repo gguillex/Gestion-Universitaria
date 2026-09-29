@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * <p>Flujo:
  * <ul>
  *   <li>GET sin parámetros → muestra formulario de selección (alumno + asignatura).</li>
- *   <li>GET/POST con {@code idAlumno} e {@code idAsignatura} → valida y matricula.</li>
+ *   <li>POST con {@code idAlumno} e {@code idAsignatura} → valida y matricula.</li>
  * </ul>
  *
  * <p>Validaciones:
@@ -32,8 +32,9 @@ public class AccionMatricular implements Accion {
         AlumnoDAO    alumnoDao    = new AlumnoDAO();
         AsignaturaDAO asignaturaDao = new AsignaturaDAO();
 
-        // Sin parámetros → mostrar formulario
-        if (idAlumnoParam == null || idAlumnoParam.isEmpty()) {
+        // Sin parámetros o por GET → mostrar formulario. Solo se matricula por POST,
+        // que es donde el filtro comprueba el token CSRF.
+        if (idAlumnoParam == null || idAlumnoParam.isEmpty() || !"POST".equals(request.getMethod())) {
             request.setAttribute("alumnos",     alumnoDao.listar());
             request.setAttribute("asignaturas", asignaturaDao.listar());
             return "/WEB-INF/vistas/alumnos/matricular.jsp";

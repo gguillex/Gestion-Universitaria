@@ -37,8 +37,13 @@
             <td><c:out value="${a.dni}"/></td>
             <td>
                 <a href="${pageContext.request.contextPath}/control?idAccion=formAlumno&id=${a.id}">Editar</a>
-                <a href="${pageContext.request.contextPath}/control?idAccion=eliminarAlumno&id=${a.id}"
-                   onclick="return confirm('¿Eliminar alumno y todas sus matrículas?')">Eliminar</a>
+                <form class="form-borrar" action="${pageContext.request.contextPath}/control" method="post"
+                      onsubmit="return confirm('¿Eliminar alumno y todas sus matrículas?')">
+                    <input type="hidden" name="idAccion" value="eliminarAlumno">
+                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                    <input type="hidden" name="id" value="${a.id}">
+                    <button type="submit">Eliminar</button>
+                </form>
             </td>
         </tr>
         </c:forEach>

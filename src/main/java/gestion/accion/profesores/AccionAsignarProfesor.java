@@ -13,8 +13,9 @@ public class AccionAsignarProfesor implements Accion {
         String idAsigParam = request.getParameter("idAsignatura");
         String idProfParam = request.getParameter("idProfesor");
 
-        // Si no hay parámetros aún, mostramos el formulario de asignación
-        if (idAsigParam == null) {
+        // Sin parámetros o por GET mostramos el formulario de asignación. Solo se
+        // asigna por POST, que es donde el filtro comprueba el token CSRF.
+        if (idAsigParam == null || !"POST".equals(request.getMethod())) {
             request.setAttribute("asignaturas", new AsignaturaDAO().listar());
             request.setAttribute("profesores",  new ProfesorDAO().listar());
             return "/WEB-INF/vistas/profesores/asignar.jsp";

@@ -1,6 +1,7 @@
 package gestion.accion;
 
 import gestion.bean.Usuario;
+import gestion.filtro.SeguridadFiltro;
 import gestion.modelo.UsuarioDAO;
 import gestion.util.Passwords;
 import jakarta.servlet.http.HttpServletRequest;
@@ -40,6 +41,8 @@ public class AccionLogin implements Accion {
                 request.changeSessionId();
             }
             sesion.setAttribute("usuarioLogueado", usuario);
+            // Token CSRF nuevo para la sesión autenticada (lo crea SeguridadFiltro)
+            sesion.removeAttribute(SeguridadFiltro.ATRIBUTO_CSRF);
             response.sendRedirect(request.getContextPath() + "/control?idAccion=listarTitulaciones");
             return null;
         }

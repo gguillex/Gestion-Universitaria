@@ -16,6 +16,7 @@
 
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="matricular">
+        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 
         <label>Alumno:
             <select name="idAlumno" required>

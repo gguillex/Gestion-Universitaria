@@ -19,6 +19,7 @@
 
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="guardarTitulacion">
+        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
         <input type="hidden" name="id"       value="${titulacion.id > 0 ? titulacion.id : ''}">
 
         <label>Nombre:
