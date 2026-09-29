@@ -15,8 +15,13 @@
         <p class="error"><c:out value="${errorRegistro}"/></p>
     </c:if>
 
+    <c:if test="${not empty param.caducado}">
+        <p class="error">La página había caducado. Vuelve a intentarlo.</p>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="registro">
+        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
 
         <label>Nombre de usuario:
             <input type="text" name="nombre" value="<c:out value='${nombrePrevio}'/>" required autofocus>

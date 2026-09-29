@@ -1,5 +1,7 @@
 package gestion.filtro;
 
+import gestion.bean.Usuario;
+import gestion.modelo.UsuarioDAO;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -24,8 +26,10 @@ import java.util.HexFormat;
  *   <li>Sin sesión activa, solo deja pasar las acciones públicas (login y
  *       autoregistro), el índice y los recursos estáticos de {@code /css/}.</li>
  *   <li>Las acciones que guardan o borran datos solo se aceptan por POST.</li>
- *   <li>Todo POST con sesión debe llevar el token CSRF de la sesión, que las
- *       vistas envían en el campo oculto {@code csrfToken}.</li>
+ *   <li>Todo POST (con sesión, o de login/registro) debe llevar el token CSRF de
+ *       la sesión, que las vistas envían en el campo oculto {@code csrfToken}.</li>
+ *   <li>El usuario de la sesión se relee de la BD en cada petición, para que los
+ *       cambios de rol y los borrados tengan efecto inmediato.</li>
  * </ul>
  */
 @WebFilter("/*")
@@ -72,17 +76,55 @@ public class SeguridadFiltro implements Filter {
             return;
         }
 
-        if (estaLogueado && sesion.getAttribute(ATRIBUTO_CSRF) == null) {
+        // El rol y la existencia del usuario se leen de la BD en cada petición: si un
+        // admin lo degrada o lo borra, el cambio se aplica ya, no al caducar la sesión.
+        if (estaLogueado && !esRecursoEstatico) {
+            Usuario actual = usuarioActualizado(sesion);
+            if (actual == null) {
+                sesion.invalidate();
+                response.sendRedirect(request.getContextPath() + "/control?idAccion=mostrarLogin");
+                return;
+            }
+            sesion.setAttribute("usuarioLogueado", actual);
+        }
+
+        // Los formularios de login y registro también llevan token: se crea la
+        // sesión (anónima) al mostrarlos. Al autenticarse se le cambia el id.
+        if (esAccionPublica && !esPost && sesion == null) {
+            sesion = request.getSession(true);
+        }
+        if (sesion != null && (estaLogueado || esAccionPublica)
+                && sesion.getAttribute(ATRIBUTO_CSRF) == null) {
             sesion.setAttribute(ATRIBUTO_CSRF, nuevoToken());
         }
 
-        // CSRF: todo POST autenticado debe traer el token de su sesión
-        if (esPost && estaLogueado && !esAccionPublica && !tokenValido(request, sesion)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token CSRF inválido");
+        // CSRF: todo POST (autenticado o de login/registro) debe traer el token de su sesión
+        if (esPost && (estaLogueado || esAccionPublica) && !tokenValido(request, sesion)) {
+            if (esAccionPublica) {
+                // Lo normal aquí es un formulario abierto con una sesión ya caducada:
+                // se vuelve a mostrar con un aviso en vez de un 403
+                String destino = "registro".equals(idAccion) ? "mostrarRegistro" : "mostrarLogin";
+                response.sendRedirect(request.getContextPath()
+                        + "/control?idAccion=" + destino + "&caducado=1");
+            } else {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token CSRF inválido");
+            }
             return;
         }
 
         chain.doFilter(req, res);
+    }
+
+    /** Relee el usuario de la sesión en la BD; null si ya no existe. */
+    private static Usuario usuarioActualizado(HttpSession sesion) throws ServletException {
+        Usuario enSesion = (Usuario) sesion.getAttribute("usuarioLogueado");
+        try {
+            Usuario actual = new UsuarioDAO().buscarPorId(enSesion.getId());
+            if (actual != null) actual.setPassword(null); // el hash nunca viaja en la sesión
+            return actual;
+        } catch (Exception e) {
+            throw new ServletException("No se pudo comprobar el usuario de la sesión", e);
+        }
     }
 
     private static boolean esModificacion(String idAccion) {
@@ -93,6 +135,7 @@ public class SeguridadFiltro implements Filter {
     }
 
     private static boolean tokenValido(HttpServletRequest request, HttpSession sesion) {
+        if (sesion == null) return false;
         Object esperado = sesion.getAttribute(ATRIBUTO_CSRF);
         String recibido = request.getParameter(ATRIBUTO_CSRF);
         return esperado != null && recibido != null

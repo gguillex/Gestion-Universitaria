@@ -19,8 +19,13 @@
         <p class="ok">Cuenta creada correctamente. Ya puedes iniciar sesión.</p>
     </c:if>
 
+    <c:if test="${not empty param.caducado}">
+        <p class="error">La página había caducado. Vuelve a intentarlo.</p>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="login">
+        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
         <label>Usuario:
             <input type="text" name="nombre" required autofocus>
         </label>
