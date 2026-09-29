@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * <p>Uso (desde la raíz del proyecto, tras {@code mvn package}):
  * <pre>
  * java -cp "target/classes;RUTA/mysql-connector-j-X.X.X.jar" gestion.util.MigrarPasswords \
- *      "jdbc:mysql://localhost:3306/NOMBRE_BD?useSSL=false&amp;serverTimezone=UTC" root ""
+ *      "jdbc:mysql://localhost:3306/NOMBRE_BD?useSSL=false&amp;serverTimezone=UTC" root [password]
  * </pre>
  * (En Linux/macOS el separador del classpath es {@code :} en lugar de {@code ;}.)
  *
@@ -28,12 +28,15 @@ public final class MigrarPasswords {
     private MigrarPasswords() {}
 
     public static void main(String[] args) throws Exception {
-        if (args.length != 3) {
-            System.err.println("Uso: MigrarPasswords <urlJdbc> <usuarioBD> <passwordBD>");
+        // La contraseña es opcional: PowerShell 5 no pasa los argumentos vacíos ("")
+        // a los programas externos, y root en XAMPP no tiene contraseña.
+        if (args.length < 2 || args.length > 3) {
+            System.err.println("Uso: MigrarPasswords <urlJdbc> <usuarioBD> [passwordBD]");
             System.exit(1);
         }
+        String passwordBD = (args.length == 3) ? args[2] : "";
 
-        try (Connection con = DriverManager.getConnection(args[0], args[1], args[2])) {
+        try (Connection con = DriverManager.getConnection(args[0], args[1], passwordBD)) {
             con.setAutoCommit(false);
             int migradas = 0;
             int yaConHash = 0;
