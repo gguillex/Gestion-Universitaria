@@ -14,6 +14,7 @@ colors:
   seleccion: "#cfd8dc"
   accion: "#ff5a00"
   accion-hover: "#e85200"
+  foco: "#d94a00"
 typography:
   marca:
     fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
@@ -21,6 +22,7 @@ typography:
     fontWeight: 900
     lineHeight: 0.86
     letterSpacing: "0"
+    # en una columna (<= 860 px): clamp(2.75rem, 1rem + 9vw, 4.5rem)
   titulo:
     fontFamily: "Big Shoulders Display, Arial Narrow, sans-serif"
     fontSize: "clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem)"
@@ -152,6 +154,12 @@ components:
     rounded: "{rounded.placa}"
     height: "56px"
     padding: "12px 24px"
+  saltar-contenido:
+    backgroundColor: "{colors.accion}"
+    textColor: "{colors.tinta}"
+    rounded: "{rounded.control}"
+    height: "44px"
+    padding: "0 16px"
   topbar-enlace-activo:
     backgroundColor: "{colors.accion}"
     textColor: "{colors.tinta}"
@@ -196,7 +204,8 @@ El detalle que la firma es la etiqueta de bridas: el panel de acceso es una etiq
 Paleta de almacén de neutros fríos con un solo naranja de señal; el negro y el gris hacen todo el trabajo estructural.
 
 ### Primary
-- **Naranja de seguridad** (`accion`, #ff5a00; hover `accion-hover`, #e85200): relleno de la acción principal activa, siempre con texto negro encima. Aparece como relleno del primer botón de la barra de acciones, del botón de envío, del enlace activo de la barra y de la acción de un estado vacío; y como anillo de foco de 3 px en campos y enlaces.
+- **Naranja de seguridad** (`accion`, #ff5a00; hover `accion-hover`, #e85200): relleno de la acción principal activa, siempre con texto negro encima. Aparece como relleno del primer botón de la barra de acciones, del botón de envío, del enlace activo de la barra, de la acción de un estado vacío y del enlace «Saltar al contenido».
+- **Naranja de foco** (`foco`, #d94a00): solo el anillo de foco de 3 px en campos y enlaces. Es un naranja más oscuro que el de acción porque #ff5a00 daba 2,83:1 sobre el suelo y WCAG 1.4.11 exige 3:1; `foco` da 3,86:1 sobre el suelo, 4,26:1 sobre blanco y 4,07:1 sobre el nailon.
 
 ### Neutral
 - **Concreto** (`fondo`, #f2f4f5): suelo de la página; también se ve a través del agujero de la etiqueta.
@@ -210,7 +219,8 @@ Paleta de almacén de neutros fríos con un solo naranja de señal; el negro y e
 - **Fila hover** (`fila-hover`, #f6f8f9) y **selección de texto** (`seleccion`, #cfd8dc): estados neutros, sin naranja.
 
 ### Named Rules
-**The Solo Relleno Rule.** El naranja es relleno de la acción activa o anillo de foco. Nunca es texto, borde, icono ni decoración; tampoco es el color de la brida.
+**The Solo Relleno Rule.** El naranja de acción (#ff5a00) es solo relleno de la acción activa. Nunca es texto, borde, icono ni decoración; tampoco es el color de la brida.
+**The Foco Oscuro Rule.** El anillo de foco usa `foco` (#d94a00), no el naranja de acción: es el único naranja que puede dibujar un anillo, porque cumple 3:1 sobre suelo, blanco y nailon.
 **The Franja De Peligro Rule.** La franja diagonal negra/blanca a 45° (10 px de periodo) significa peligro o límite: botón de borrar, aviso de error, campo inválido, marca del mensaje de campo, asignatura completa. No se usa como adorno.
 
 ## Typography
@@ -221,7 +231,7 @@ Paleta de almacén de neutros fríos con un solo naranja de señal; el negro y e
 **Character:** la display, estrecha y de hombros altos, da el rótulo industrial: marca, títulos, enlaces de barra, cabeceras de tabla, placas y rótulos de las placas móviles. Archivo en ancho normal queda para lo que se lee y se pulsa: cuerpo, campos, botones y rótulos de campo, ahora en frase normal.
 
 ### Hierarchy
-- **Marca** (display 900, clamp(3.5rem, 1.5rem + 7vw, 6rem), 0.86, mayúsculas): solo el título de la hoja de acceso.
+- **Marca** (display 900, clamp(3.5rem, 1.5rem + 7vw, 6rem), 0.86, mayúsculas): solo el título de la hoja de acceso. En una columna (hasta 860 px) el tamaño es fluido, clamp(2.75rem, 1rem + 9vw, 4.5rem), para no desbordar a 320 px.
 - **Título de sección** (display 800, clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem), 0.92, mayúsculas): el h2 de cada página, siempre entre comillas.
 - **Título de panel** (display 800, 1.75rem, 1.1, 0.03em): h2 del panel de acceso, sobre nailon; hereda las comillas del h2.
 - **Título de estado vacío** (display 800, 2rem, 1, 0.02em, entre comillas).
@@ -240,11 +250,11 @@ Paleta de almacén de neutros fríos con un solo naranja de señal; el negro y e
 
 ## Layout
 
-Página centrada de 1280 px máximo con relleno de 24/32 px (16 px bajo 720 px). Un solo ritmo de espaciado: 4, 8, 12, 16, 24, 32, 48, 64 px. Objetivo táctil mínimo de 44 px (`alto-control`); acciones de fila de 32 px en escritorio y 44 px en móvil.
+Página centrada de 1280 px máximo con relleno de 24/32 px (16 px bajo 720 px). Un solo ritmo de espaciado: 4, 8, 12, 16, 24, 32, 48, 64 px. Objetivo táctil mínimo de 44 px (`alto-control`); acciones de fila de 32 px en escritorio y 44 px en móvil. En la barra superior, los enlaces de sección y «Cerrar sesión» miden 36 px de alto en escritorio y 44 px a 720 px o menos.
 
-Estructura de página interna: barra superior, h2 con 48 px de margen superior, barra de acciones, avisos, tabla o formulario (máximo 480 px). El acceso usa cuadrícula de dos columnas (1.15fr y panel de 320-400 px, hueco de 48 px, máximo 1040 px), apilada bajo 860 px; el panel deja 60 px sobre sí para la brida.
+Estructura de página interna: enlace «Saltar al contenido», barra superior, h2 con 48 px de margen superior, barra de acciones, avisos, tabla o formulario (máximo 480 px), todo dentro de `<main id="contenido" tabindex="-1">` (presente en las 14 vistas internas). El acceso usa cuadrícula de dos columnas (1.15fr y panel de 320-400 px, hueco de 48 px, máximo 1040 px), apilada bajo 860 px (columna de 440 px máximo, marca fluida); el panel deja 60 px sobre sí para la brida.
 
-Puntos de ruptura observados: 1240 px (por encima la barra cabe en una fila; por debajo pasa a dos filas y los enlaces forman una tira desplazable con difuminado a la derecha), 860 px (acceso apilado), 720 px (relleno y márgenes reducidos, botones de barra a ancho completo), 640 px (las tablas con .tabla-placas se convierten en placas), 480 px (botones de formulario a 100%).
+Puntos de ruptura observados: 1240 px (por encima la barra cabe en una fila; por debajo pasa a dos filas y los enlaces forman una tira desplazable con difuminado a la derecha), 860 px (acceso apilado), 720 px (relleno y márgenes reducidos, botones de barra a ancho completo, enlaces de la barra y «Cerrar sesión» a 44 px de alto), 640 px (las tablas con .tabla-placas se convierten en placas), 480 px (botones de formulario a 100%).
 
 En móvil cada fila de una tabla-placas es una placa: borde de tinta, ID como placa en la esquina superior derecha con prefijo «ID», celda principal en 17 px/700, resto con rótulo de la display (data-label) y acciones a ancho completo tras una línea suave.
 
@@ -254,7 +264,7 @@ Sistema plano con una sola sombra estructural. Los paneles y formularios se sepa
 
 ### Shadow Vocabulary
 - **Placa** (`box-shadow: 0 1px 0 rgba(12,17,20,.06), 0 10px 24px -14px rgba(12,17,20,.35)`): solo formularios y el panel de acceso; desplazamiento con desenfoque suave.
-- **Anillo de foco** (`box-shadow: 0 0 0 3px #ff5a00`): foco visible en enlaces y campos. En botones de envío el foco es un doble anillo blanco 3 px + tinta 6 px.
+- **Anillo de foco** (`box-shadow: 0 0 0 3px #d94a00`, variable `--anillo-foco` sobre `foco`): foco visible en enlaces y campos; `main` no dibuja anillo al recibir el foco. En botones de envío el foco es un doble anillo blanco 3 px + tinta 6 px.
 
 ### Named Rules
 **The Plano Salvo Placa Rule.** Sin sombra en reposo salvo la de las placas de formulario y acceso; no se añaden sombras duras desplazadas.
@@ -277,11 +287,14 @@ Esquinas casi rectas: 2 px en controles, placas de ID, badges y botones; 3 px en
 
 ### Inputs / Fields
 - **Style:** blanco, borde de tinta 1,5 px, radio 2 px, 44 px de alto; rótulo de campo en Archivo 600, 13 px, frase normal, sobre el campo.
-- **Focus:** anillo naranja de 3 px, sin contorno.
+- **Focus:** anillo de 3 px en naranja de foco (#d94a00), sin contorno.
 - **Error:** el mensaje (.campo-error) está en el marcado y se muestra con :user-invalid tras la interacción; el campo gana una franja de 5 px en el borde inferior y el mensaje lleva un cuadrado con franja.
 
 ### Navigation
-Barra nailon con marca de la display en mayúsculas precedida de un anillo blanco pequeño (el agujero de la etiqueta), enlaces de la display en mayúsculas, usuario con badge de rol y enlace de cierre. Enlace activo por aria-current="page": relleno naranja con texto negro. Hover: fondo blanco al 8%. En una fila desde 1240 px; por debajo, dos filas con tira desplazable.
+Barra nailon con marca de la display en mayúsculas precedida de un anillo blanco pequeño (el agujero de la etiqueta), enlaces de la display en mayúsculas, usuario con badge de rol y enlace de cierre. Enlace activo por aria-current="page": relleno naranja con texto negro. Hover: fondo blanco al 8%. Alto de enlaces y «Cerrar sesión»: 36 px, 44 px en móvil (720 px o menos). El primer elemento del menú es el enlace «Saltar al contenido». En una fila desde 1240 px; por debajo, dos filas con tira desplazable.
+
+### Saltar al contenido
+Enlace (`.saltar`) que lleva a `<main id="contenido" tabindex="-1">`. Fuera de pantalla en reposo (top -80 px); al recibir el foco baja a 12 px del borde superior con relleno naranja de acción, texto negro, borde de tinta 1,5 px, radio 2 px, 44 px de alto, Archivo 800 a 13 px. Es una acción activa, así que el relleno de acción es correcto; el foco visible lo da el anillo global.
 
 ### Etiqueta de bridas (componente firma)
 El panel de acceso (.auth-panel) es una etiqueta de almacén: cabecera nailon con el agujero perforado a la izquierda (círculo que deja ver el concreto, con un anillo tenue de material), y una brida negra (tinta, nunca naranja) que sube desde el agujero, hecha con ::before (cinta de 6x78 px) y ::after (cabeza de 14x20 px). Se balancea una sola vez al cargar (1300 ms, 350 ms de retardo, punto de giro en el agujero) y queda quieta; con prefers-reduced-motion no se anima. El cuerpo del panel lleva el formulario sin borde propio y el botón naranja a ancho completo con la flecha a la derecha.
@@ -298,7 +311,8 @@ Barra `progress.ocupacion` (16 px, borde de tinta, relleno tinta) con texto de A
 ## Do's and Don'ts
 
 ### Do:
-- **Do** usar naranja (#ff5a00) solo como relleno de la acción principal activa con texto negro, y como anillo de foco.
+- **Do** usar naranja de acción (#ff5a00) solo como relleno de la acción principal activa con texto negro, y `foco` (#d94a00) para todo anillo de foco.
+- **Do** poner `<main id="contenido" tabindex="-1">` en cada vista interna y mantener el enlace «Saltar al contenido» como primer elemento del menú.
 - **Do** reservar la franja diagonal para peligro y límite: borrar, error, campo inválido, asignatura completa.
 - **Do** nombrar cada zona con un rótulo entre comillas generado por CSS, y dar a cada registro su placa de ID en la display.
 - **Do** tomar toda medida de las variables de :root y reutilizar las clases existentes (.toolbar, .placa, .badge, .error, .ok, .tabla-placas, .acciones-form) antes de crear estilos por página.
@@ -307,6 +321,7 @@ Barra `progress.ocupacion` (16 px, borde de tinta, relleno tinta) con texto de A
 - **Do** desactivar el balanceo de la etiqueta con prefers-reduced-motion y no repetirlo tras la carga.
 
 ### Don't:
+- **Don't** dibujar el foco con #ff5a00 (2,83:1 sobre el suelo) ni bajar `foco` de 3:1.
 - **Don't** usar naranja como texto, borde o decoración, ni para varias acciones a la vez en una misma zona, ni para la brida.
 - **Don't** usar la franja como adorno ni en superficies sin peligro.
 - **Don't** usar la display en campos, botones ni texto corrido, ni volver a mayúsculas monoespaciadas para los rótulos de campo.
