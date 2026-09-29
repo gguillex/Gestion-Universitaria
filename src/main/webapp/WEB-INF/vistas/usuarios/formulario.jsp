@@ -4,21 +4,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Usuario</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usuario · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
 
-    <h2>
-        <c:choose>
-            <c:when test="${usuario.id > 0}">Editar usuario</c:when>
-            <c:otherwise>Nuevo usuario</c:otherwise>
-        </c:choose>
-    </h2>
+    <h2><c:choose><c:when test="${usuario.id > 0}">Editar usuario</c:when><c:otherwise>Nuevo usuario</c:otherwise></c:choose></h2>
 
     <c:if test="${not empty error}">
-        <p class="error"><c:out value="${error}"/></p>
+        <p class="error" role="alert"><c:out value="${error}"/></p>
     </c:if>
 
     <form action="${pageContext.request.contextPath}/control" method="post">
@@ -26,30 +22,34 @@
         <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
         <input type="hidden" name="id"       value="${usuario.id > 0 ? usuario.id : ''}">
 
-        <label>Nombre:
-            <input type="text" name="nombre" value="<c:out value='${usuario.nombre}'/>" required>
+        <label>Nombre
+            <input type="text" name="nombre" value="<c:out value='${usuario.nombre}'/>" autocomplete="off" required autofocus>
+            <span class="campo-error">Escribe el nombre de usuario.</span>
         </label>
         <c:choose>
             <c:when test="${usuario.id > 0}">
-                <label>Nueva contraseña (vacía = no cambiarla):
+                <label>Nueva contraseña (vacía = no cambiarla)
                     <input type="password" name="password" autocomplete="new-password">
                 </label>
             </c:when>
             <c:otherwise>
-                <label>Contraseña:
+                <label>Contraseña
                     <input type="password" name="password" autocomplete="new-password" required>
+                    <span class="campo-error">Escribe una contraseña.</span>
                 </label>
             </c:otherwise>
         </c:choose>
-        <label>Rol:
+        <label>Rol
             <select name="rol">
                 <option value="usuario" ${usuario.rol == 'usuario' ? 'selected' : ''}>usuario</option>
                 <option value="admin"   ${usuario.rol == 'admin'   ? 'selected' : ''}>admin</option>
             </select>
         </label>
 
-        <button type="submit">Guardar</button>
-        <a href="${pageContext.request.contextPath}/control?idAccion=listarUsuarios">Cancelar</a>
+        <div class="acciones-form">
+            <button type="submit">Guardar</button>
+            <a href="${pageContext.request.contextPath}/control?idAccion=listarUsuarios">Cancelar</a>
+        </div>
     </form>
 
 </body>

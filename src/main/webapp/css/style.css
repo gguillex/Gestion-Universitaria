@@ -209,6 +209,9 @@ a:hover { text-decoration-thickness: 2px; }
     padding: 2px var(--e-2);
 }
 
+/* Rol con más permisos: placa invertida (tinta) */
+.badge-admin { background: var(--c-tinta); color: var(--c-texto-inverso); }
+
 /* ---------- Barra de acciones de un listado ---------- */
 
 .toolbar { display: flex; gap: var(--e-2); flex-wrap: wrap; margin: 0 0 var(--e-5); }
@@ -738,10 +741,10 @@ form textarea:user-invalid ~ .campo-error { display: block; }
         flex-wrap: nowrap;
         overflow-x: auto;
         margin: 0 calc(-1 * var(--e-2));
-        padding-right: var(--e-6);
+        padding-right: var(--e-7);
         scrollbar-width: none;
-        -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--e-7)), transparent);
-                mask-image: linear-gradient(to right, #000 calc(100% - var(--e-7)), transparent);
+        -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--e-6)), transparent);
+                mask-image: linear-gradient(to right, #000 calc(100% - var(--e-6)), transparent);
     }
     .topbar-links::-webkit-scrollbar { display: none; }
 }
