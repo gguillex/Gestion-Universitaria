@@ -227,6 +227,7 @@ a:hover { text-decoration-thickness: 2px; }
     letter-spacing: 0.04em;
     text-transform: uppercase;
     text-decoration: none;
+    white-space: nowrap;
     transition: background var(--dur-corta) var(--ease-salida);
 }
 .toolbar a:hover { background: var(--c-fila-hover); }
@@ -301,6 +302,7 @@ table td a,
     text-transform: uppercase;
     text-decoration: none;
     box-shadow: none;
+    white-space: nowrap;
     cursor: pointer;
     transition: background var(--dur-corta) var(--ease-salida), color var(--dur-corta) var(--ease-salida);
 }
@@ -369,13 +371,14 @@ form.form-borrar {
     .tabla-placas td.celda-principal::before { content: none; }
     .tabla-placas td.celda-acciones {
         display: flex;
+        flex-wrap: wrap;
         gap: var(--e-2);
         padding: var(--e-2) 0 0;
         border-top: var(--borde-suave);
     }
     .tabla-placas td.celda-acciones::before { content: none; }
     .tabla-placas td.celda-acciones > a,
-    .tabla-placas td.celda-acciones > form { flex: 1; display: flex; }
+    .tabla-placas td.celda-acciones > form { flex: 1 1 auto; display: flex; }
     .tabla-placas td.celda-acciones a,
     .tabla-placas td.celda-acciones button[type="submit"] {
         flex: 1;
@@ -718,7 +721,7 @@ form textarea:user-invalid ~ .campo-error { display: block; }
     body { padding: var(--e-3) var(--e-4) var(--e-7); }
     .topbar { padding: var(--e-3) var(--e-4); }
     h2 { margin-top: var(--e-6); }
-    .toolbar a { flex: 1; justify-content: center; }
+    .toolbar a { flex: 1 1 auto; justify-content: center; text-align: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {
