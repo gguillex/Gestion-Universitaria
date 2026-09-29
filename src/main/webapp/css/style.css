@@ -7,13 +7,29 @@
  * Todo valor de diseño vive en las variables de :root.
  */
 
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Chivo+Mono:wght@400;500;600&display=swap");
+/* Fuentes propias (licencia OFL), servidas desde /css/fonts/: no dependen de
+   terceros y el login las puede cargar sin sesión. Subconjunto latino. */
+@font-face {
+    font-family: "Archivo";
+    src: url("fonts/archivo-latin.woff2") format("woff2");
+    font-weight: 400 900;
+    font-stretch: 62% 125%;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Chivo Mono";
+    src: url("fonts/chivomono-latin.woff2") format("woff2");
+    font-weight: 400 600;
+    font-style: normal;
+    font-display: swap;
+}
 
 :root {
     /* Color */
-    --c-fondo:        #ececec;   /* gris etiqueta: el suelo de la página */
+    --c-fondo:        #f7f7f7;   /* blanco algodón neutro: el suelo de la página */
     --c-superficie:   #ffffff;   /* algodón blanco: placas y paneles */
-    --c-placa:        #e2e2e2;   /* fondo de placas de datos */
+    --c-placa:        #e2e2e2;   /* gris etiqueta: solo fondo de placas */
     --c-tinta:        #0a0a0a;   /* tinta negra: texto, bordes, cabeceras */
     --c-nailon:       #1a1a1a;   /* negro nailon: superficies oscuras */
     --c-texto-suave:  #4a4a4a;   /* texto secundario (7:1 sobre blanco) */
@@ -23,7 +39,7 @@
     --c-fila-hover:   #f5f5f5;
     --c-accion:       #ff5a00;   /* naranja de seguridad (solo relleno) */
     --c-accion-hover: #e85200;
-    --c-seleccion:    #ffd2b8;
+    --c-seleccion:    #d9d9d9;   /* selección de texto: neutra, sin naranja */
 
     /* Franja de peligro (negro/blanco a 45°) */
     --franja: repeating-linear-gradient(-45deg,
@@ -57,6 +73,7 @@
     --r-placa:      3px;
     --r-control:    2px;
     --alto-control: 44px;        /* objetivo táctil mínimo */
+    --ancho-pagina: 1280px;
 
     /* Profundidad: desplazamiento + desenfoque suave */
     --sombra-placa: 0 1px 0 rgba(10, 10, 10, .06), 0 10px 24px -14px rgba(10, 10, 10, .35);
@@ -82,9 +99,9 @@ body {
     background: var(--c-fondo);
     color: var(--c-tinta);
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: var(--ancho-pagina);
     padding: var(--e-5) var(--e-6) var(--e-8);
-    caret-color: var(--c-accion);
+    caret-color: var(--c-tinta);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -108,11 +125,10 @@ h2::after  { content: "\201D"; }
 
 a {
     color: var(--c-tinta);
-    text-decoration-color: var(--c-accion);
-    text-decoration-thickness: 2px;
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
 }
-a:hover { text-decoration-color: var(--c-tinta); }
+a:hover { text-decoration-thickness: 2px; }
 
 :focus-visible { outline: none; box-shadow: var(--anillo-foco); }
 
@@ -147,7 +163,7 @@ a:hover { text-decoration-color: var(--c-tinta); }
     display: inline-flex;
     align-items: center;
     min-height: 36px;
-    padding: 0 var(--e-3);
+    padding: 0 10px;
     border-radius: var(--r-control);
     font-family: var(--f-mono);
     font-size: var(--t-xs);
@@ -160,6 +176,12 @@ a:hover { text-decoration-color: var(--c-tinta); }
     transition: color var(--dur-corta) var(--ease-salida), background var(--dur-corta) var(--ease-salida);
 }
 .topbar-links a:hover { color: var(--c-texto-inverso); background: rgba(255, 255, 255, .08); }
+.topbar-links a[aria-current="page"] {
+    background: var(--c-accion);
+    color: var(--c-tinta);
+    font-weight: 600;
+}
+.topbar-links a[aria-current="page"]:hover { background: var(--c-accion-hover); color: var(--c-tinta); }
 .topbar-user {
     display: flex;
     align-items: center;
@@ -254,8 +276,9 @@ td em { color: var(--c-texto-suave); }
     font-weight: 500;
     text-align: center;
     background: var(--c-placa);
+    border: 1px solid var(--c-tinta);
     border-radius: var(--r-control);
-    padding: 2px var(--e-2);
+    padding: 1px var(--e-2);
 }
 
 /* Acciones de fila: editar (placa en blanco) y borrar (placa con franja) */
@@ -343,6 +366,7 @@ form.form-borrar {
     .tabla-placas td.celda-id::before { content: none; }
     .tabla-placas td.celda-id .placa::before { content: "ID "; color: var(--c-texto-suave); }
     .tabla-placas td.celda-principal { padding-right: 5em; font-size: var(--t-md); font-weight: 700; }
+    .tabla-placas td.celda-principal::before { content: none; }
     .tabla-placas td.celda-acciones {
         display: flex;
         gap: var(--e-2);
@@ -433,7 +457,8 @@ button[type="submit"]:hover { background: var(--c-accion-hover); }
 button[type="submit"]:active { transform: translateY(1px); }
 button[type="submit"]:focus-visible { box-shadow: 0 0 0 3px var(--c-superficie), 0 0 0 6px var(--c-tinta); }
 button[type="submit"]:disabled {
-    background: var(--franja);
+    background: var(--c-placa);
+    border-color: rgba(10, 10, 10, .4);
     color: var(--c-texto-suave);
     cursor: not-allowed;
 }
@@ -467,10 +492,10 @@ button[type="submit"]:focus-visible .flecha { transform: translateX(4px); }
 .error::before, .alert-error::before,
 .ok::before, .alert-success::before {
     display: block;
-    font-family: var(--f-mono);
-    font-size: var(--t-xs);
-    font-weight: 600;
-    letter-spacing: var(--tracking-rotulo);
+    font-size: 1rem;
+    font-weight: 800;
+    font-stretch: var(--f-ancho-rotulo);
+    letter-spacing: 0.04em;
     margin-bottom: 2px;
 }
 /* Error: registro de peligro, con la franja en el borde superior */
@@ -552,12 +577,12 @@ body.auth form { width: 100%; max-width: 380px; }
     padding: var(--e-3) var(--e-5);
     background: var(--c-nailon);
     color: var(--c-texto-inverso);
-    font-family: var(--f-mono);
-    font-size: var(--t-xs);
-    font-weight: 500;
-    font-stretch: normal;
-    letter-spacing: var(--tracking-rotulo);
-    line-height: 1.5;
+    font-family: var(--f-base);
+    font-size: 1.25rem;
+    font-weight: 800;
+    font-stretch: var(--f-ancho-rotulo);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
 }
 .auth-panel .auth-cuerpo { padding: var(--e-5); }
 .auth-panel .error, .auth-panel .ok { margin: 0 0 var(--e-4); }
@@ -577,19 +602,15 @@ body.auth form { width: 100%; max-width: 380px; }
     .auth-titulo { margin-bottom: var(--e-4); }
 }
 
-/* ---------- Anchos pequeños (páginas internas) ---------- */
+/* ---------- Anchos medios y pequeños (páginas internas) ---------- */
 
-@media (max-width: 720px) {
-    body { padding: var(--e-3) var(--e-4) var(--e-7); }
-    .topbar {
-        flex-wrap: wrap;
-        gap: var(--e-2) var(--e-4);
-        padding: var(--e-3) var(--e-4);
-    }
+/* Donde los siete enlaces ya no caben junto a la marca y el usuario, la barra
+   pasa a dos filas y los enlaces forman una tira desplazable con difuminado
+   en el borde derecho (indica que hay más secciones). */
+@media (max-width: 1240px) {
+    .topbar { flex-wrap: wrap; gap: var(--e-2) var(--e-4); }
     .topbar-brand { order: 1; }
     .topbar-user  { order: 2; margin-left: auto; }
-    /* En móvil los enlaces se desplazan en horizontal; el difuminado del
-       borde derecho indica que hay más secciones */
     .topbar-links {
         order: 3;
         flex: 1 1 100%;
@@ -602,6 +623,11 @@ body.auth form { width: 100%; max-width: 380px; }
                 mask-image: linear-gradient(to right, #000 calc(100% - var(--e-7)), transparent);
     }
     .topbar-links::-webkit-scrollbar { display: none; }
+}
+
+@media (max-width: 720px) {
+    body { padding: var(--e-3) var(--e-4) var(--e-7); }
+    .topbar { padding: var(--e-3) var(--e-4); }
     h2 { margin-top: var(--e-6); }
     .toolbar a { flex: 1; justify-content: center; }
 }

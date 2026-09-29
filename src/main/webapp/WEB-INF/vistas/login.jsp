@@ -40,7 +40,7 @@
                     <input type="hidden" name="idAccion" value="login">
                     <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                     <label>Usuario
-                        <input type="text" name="nombre" autocomplete="username" required autofocus>
+                        <input type="text" name="nombre" value="<c:out value='${param.nombre}'/>" autocomplete="username" required autofocus>
                     </label>
                     <label>Contraseña
                         <input type="password" name="password" autocomplete="current-password" required>
