@@ -28,3 +28,13 @@
         <a href="${pageContext.request.contextPath}/control?idAccion=logout">Cerrar sesión</a>
     </div>
 </nav>
+<script>
+    /* En móvil los enlaces forman una tira desplazable: se centra la sección activa para que no quede oculta */
+    (function () {
+        var activo = document.querySelector('.topbar-links a[aria-current="page"]');
+        if (!activo) return;
+        var tira = activo.parentElement;
+        var izq = activo.getBoundingClientRect().left - tira.getBoundingClientRect().left + tira.scrollLeft;
+        tira.scrollLeft = izq - (tira.clientWidth - activo.offsetWidth) / 2;
+    })();
+</script>
