@@ -4,41 +4,58 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Iniciar sesión · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body class="auth">
 
-    <h2>Iniciar sesión</h2>
+    <main class="auth-hoja">
 
-    <c:if test="${not empty errorLogin}">
-        <p class="error"><c:out value="${errorLogin}"/></p>
-    </c:if>
+        <section class="auth-marca">
+            <h1 class="auth-titulo">Gestión<br>Universitaria</h1>
+            <dl class="placa-datos">
+                <dt>Acceso</dt>  <dd>Administración y profesorado</dd>
+                <dt>Sistema</dt> <dd>Gestión universitaria</dd>
+            </dl>
+        </section>
 
-    <c:if test="${not empty param.registroOk}">
-        <p class="ok">Cuenta creada correctamente. Ya puedes iniciar sesión.</p>
-    </c:if>
+        <section class="auth-panel" aria-labelledby="titulo-acceso">
+            <h2 id="titulo-acceso">Iniciar sesión</h2>
 
-    <c:if test="${not empty param.caducado}">
-        <p class="error">La página había caducado. Vuelve a intentarlo.</p>
-    </c:if>
+            <div class="auth-cuerpo">
+                <c:if test="${not empty errorLogin}">
+                    <p class="error" role="alert"><c:out value="${errorLogin}"/></p>
+                </c:if>
 
-    <form action="${pageContext.request.contextPath}/control" method="post">
-        <input type="hidden" name="idAccion" value="login">
-        <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
-        <label>Usuario:
-            <input type="text" name="nombre" required autofocus>
-        </label>
-        <label>Contraseña:
-            <input type="password" name="password" required>
-        </label>
-        <button type="submit">Entrar</button>
-    </form>
+                <c:if test="${not empty param.registroOk}">
+                    <p class="ok" role="status">Cuenta creada correctamente. Ya puedes iniciar sesión.</p>
+                </c:if>
 
-    <p class="auth-footer">
-        ¿No tienes cuenta?
-        <a href="${pageContext.request.contextPath}/control?idAccion=mostrarRegistro">Regístrate</a>
-    </p>
+                <c:if test="${not empty param.caducado}">
+                    <p class="error" role="alert">La página había caducado. Vuelve a intentarlo.</p>
+                </c:if>
+
+                <form action="${pageContext.request.contextPath}/control" method="post">
+                    <input type="hidden" name="idAccion" value="login">
+                    <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
+                    <label>Usuario
+                        <input type="text" name="nombre" autocomplete="username" required autofocus>
+                    </label>
+                    <label>Contraseña
+                        <input type="password" name="password" autocomplete="current-password" required>
+                    </label>
+                    <button type="submit">Entrar <span class="flecha" aria-hidden="true"></span></button>
+                </form>
+
+                <p class="auth-footer">
+                    ¿No tienes cuenta?
+                    <a href="${pageContext.request.contextPath}/control?idAccion=mostrarRegistro">Regístrate</a>
+                </p>
+            </div>
+        </section>
+
+    </main>
 
 </body>
 </html>
