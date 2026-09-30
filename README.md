@@ -1,5 +1,7 @@
 # Gestión Universitaria
 
+[![CI](https://github.com/gguillex/Gestion-Universitaria/actions/workflows/ci.yml/badge.svg)](https://github.com/gguillex/Gestion-Universitaria/actions/workflows/ci.yml)
+
 Aplicación web para gestionar **titulaciones, asignaturas, profesorado, alumnado y matrículas**, con control de plazas, roles de usuario y exportación de listados. Está construida con Jakarta EE y JSP, siguiendo el patrón **Front Controller**, sin frameworks.
 
 ![Pantalla de acceso](docs/img/login.png)
