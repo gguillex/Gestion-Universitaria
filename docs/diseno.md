@@ -1,6 +1,6 @@
 ---
 name: Sistema de Gestión Universitaria
-description: Almacén bien rotulado, traducido a sobrio: neutros fríos, tinta negra, rótulos condensados entre comillas y placas de etiqueta; el acceso es una etiqueta de bridas.
+description: "Almacén bien rotulado, traducido a sobrio: neutros fríos, tinta negra, rótulos condensados entre comillas y placas de etiqueta; el acceso es una etiqueta de bridas."
 colors:
   fondo: "#f2f4f5"
   superficie: "#ffffff"
