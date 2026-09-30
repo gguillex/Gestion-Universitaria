@@ -11,9 +11,8 @@ import javax.crypto.spec.PBEKeySpec;
  * Hash y verificación de contraseñas con PBKDF2-HMAC-SHA256 (incluido en el JDK).
  *
  * <p>Formato almacenado: {@code pbkdf2$iteraciones$salt(base64)$hash(base64)}.
- * Las contraseñas antiguas en texto plano (sin ese prefijo) se siguen aceptando
- * para poder migrarlas al primer login: ver {@link #esLegado(String)} y
- * {@link MigrarPasswords}.
+ * Las contraseñas en texto plano (sin ese prefijo) se siguen aceptando y se
+ * convierten a hash en el primer login correcto: ver {@link #esLegado(String)}.
  */
 public final class Passwords {
 

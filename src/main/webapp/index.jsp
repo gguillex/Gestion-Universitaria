@@ -1,2 +1,3 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<% response.sendRedirect(request.getContextPath() + "/control?idAccion=mostrarLogin"); %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<c:redirect url="/control?idAccion=mostrarLogin"/>
