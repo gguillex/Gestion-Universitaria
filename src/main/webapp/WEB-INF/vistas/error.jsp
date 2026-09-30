@@ -7,11 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Error · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/css/favicon.svg">
 </head>
 <body>
     <jsp:include page="menu.jsp"/>
     <main id="contenido" tabindex="-1">
-    <h2>Se ha producido un error</h2>
+    <h1>Se ha producido un error</h1>
     <p class="error" role="alert">
         <c:out value="${error}" default="Error desconocido"/>
     </p>

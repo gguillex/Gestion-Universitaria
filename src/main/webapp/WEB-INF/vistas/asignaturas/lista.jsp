@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Asignaturas · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/css/favicon.svg">
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
     <main id="contenido" tabindex="-1">
 
-    <h2>Asignaturas</h2>
+    <h1>Asignaturas</h1>
 
     <p class="toolbar">
         <a href="${pageContext.request.contextPath}/control?idAccion=formAsignatura">Nueva asignatura</a>
@@ -27,38 +28,38 @@
         <p class="error" role="alert"><c:out value="${error}"/></p>
     </c:if>
 
-    <table class="tabla-placas">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Capacidad</th>
-            <th scope="col">Titulación</th>
-            <th scope="col">Profesor</th>
-            <th scope="col">Acciones</th>
+    <table class="tabla-placas" role="table">
+        <tr role="row">
+            <th role="columnheader" scope="col">ID</th>
+            <th role="columnheader" scope="col">Nombre</th>
+            <th role="columnheader" scope="col">Capacidad</th>
+            <th role="columnheader" scope="col">Titulación</th>
+            <th role="columnheader" scope="col">Profesor</th>
+            <th role="columnheader" scope="col">Acciones</th>
         </tr>
         <c:forEach var="a" items="${asignaturas}">
-            <tr>
-                <td class="celda-id" data-label="ID"><span class="placa">${a.id}</span></td>
-                <td class="celda-principal" data-label="Nombre"><c:out value="${a.nombre}"/></td>
-                <td data-label="Capacidad">${a.capacidadMaxima}</td>
-                <td data-label="Titulación"><c:out value="${a.nombreTitulacion}"/></td>
-                <td data-label="Profesor"><c:out value="${a.nombreProfesor}" default="—"/></td>
-                <td class="celda-acciones">
-                    <a href="${pageContext.request.contextPath}/control?idAccion=matriculadosAsignatura&idAsignatura=${a.id}">Ver alumnos</a>
-                    <a href="${pageContext.request.contextPath}/control?idAccion=formAsignatura&id=${a.id}">Editar</a>
+            <tr role="row">
+                <td role="cell" class="celda-id" data-label="ID"><span class="placa">${a.id}</span></td>
+                <td role="cell" class="celda-principal" data-label="Nombre"><c:out value="${a.nombre}"/></td>
+                <td role="cell" data-label="Capacidad">${a.capacidadMaxima}</td>
+                <td role="cell" data-label="Titulación"><c:out value="${a.nombreTitulacion}"/></td>
+                <td role="cell" data-label="Profesor"><c:out value="${a.nombreProfesor}" default="—"/></td>
+                <td role="cell" class="celda-acciones">
+                    <a href="${pageContext.request.contextPath}/control?idAccion=matriculadosAsignatura&idAsignatura=${a.id}" aria-label="Ver alumnos de <c:out value='${a.nombre}'/>">Ver alumnos</a>
+                    <a href="${pageContext.request.contextPath}/control?idAccion=formAsignatura&id=${a.id}" aria-label="Editar asignatura <c:out value='${a.nombre}'/>">Editar</a>
                     <form class="form-borrar" action="${pageContext.request.contextPath}/control" method="post"
                           onsubmit="return confirm('¿Eliminar asignatura?')">
                         <input type="hidden" name="idAccion" value="eliminarAsignatura">
                         <input type="hidden" name="csrfToken" value="${sessionScope.csrfToken}">
                         <input type="hidden" name="id" value="${a.id}">
-                        <button type="submit">Eliminar</button>
+                        <button type="submit" aria-label="Eliminar asignatura <c:out value='${a.nombre}'/>">Eliminar</button>
                     </form>
                 </td>
             </tr>
         </c:forEach>
         <c:if test="${empty asignaturas}">
-            <tr class="fila-vacia">
-                <td colspan="6" class="vacio">
+            <tr role="row" class="fila-vacia">
+                <td role="cell" colspan="6" class="vacio">
                     <strong class="vacio-titulo">Sin asignaturas</strong>
                     <p>No hay asignaturas registradas</p>
                     <a href="${pageContext.request.contextPath}/control?idAccion=formAsignatura">Nueva asignatura</a>

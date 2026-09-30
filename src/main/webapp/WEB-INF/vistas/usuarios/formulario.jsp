@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Usuario · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/css/favicon.svg">
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
     <main id="contenido" tabindex="-1">
 
-    <h2><c:choose><c:when test="${usuario.id > 0}">Editar usuario</c:when><c:otherwise>Nuevo usuario</c:otherwise></c:choose></h2>
+    <h1><c:choose><c:when test="${usuario.id > 0}">Editar usuario</c:when><c:otherwise>Nuevo usuario</c:otherwise></c:choose></h1>
 
     <c:if test="${not empty error}">
         <p class="error" role="alert"><c:out value="${error}"/></p>

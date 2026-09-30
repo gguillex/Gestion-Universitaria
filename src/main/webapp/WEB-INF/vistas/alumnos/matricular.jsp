@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matricular · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/css/favicon.svg">
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
     <main id="contenido" tabindex="-1">
 
-    <h2>Matricular alumno en asignatura</h2>
+    <h1>Matricular alumno en asignatura</h1>
 
     <c:if test="${not empty error}"><p class="error" role="alert"><c:out value="${error}"/></p></c:if>
 

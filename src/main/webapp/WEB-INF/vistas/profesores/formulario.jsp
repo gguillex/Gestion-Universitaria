@@ -7,12 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profesor · Gestión Universitaria</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="${pageContext.request.contextPath}/css/favicon.svg">
 </head>
 <body>
     <jsp:include page="/WEB-INF/vistas/menu.jsp"/>
     <main id="contenido" tabindex="-1">
 
-    <h2><c:choose><c:when test="${profesor.id > 0}">Editar profesor</c:when><c:otherwise>Nuevo profesor</c:otherwise></c:choose></h2>
+    <h1><c:choose><c:when test="${profesor.id > 0}">Editar profesor</c:when><c:otherwise>Nuevo profesor</c:otherwise></c:choose></h1>
 
     <form action="${pageContext.request.contextPath}/control" method="post">
         <input type="hidden" name="idAccion" value="guardarProfesor">
