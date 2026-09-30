@@ -77,6 +77,11 @@ typography:
     fontSize: "0.8125rem"
     fontWeight: 600
     lineHeight: 1.5
+  indicador-obligatorio:
+    fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 500
+    lineHeight: 1.5
   boton:
     fontFamily: "Archivo, system-ui, Segoe UI, sans-serif"
     fontSize: "0.8125rem"
@@ -154,6 +159,9 @@ components:
     rounded: "{rounded.placa}"
     height: "56px"
     padding: "12px 24px"
+  indicador-obligatorio:
+    textColor: "{colors.texto-suave}"
+    typography: "{typography.indicador-obligatorio}"
   saltar-contenido:
     backgroundColor: "{colors.accion}"
     textColor: "{colors.tinta}"
@@ -231,9 +239,9 @@ Paleta de almacén de neutros fríos con un solo naranja de señal; el negro y e
 **Character:** la display, estrecha y de hombros altos, da el rótulo industrial: marca, títulos, enlaces de barra, cabeceras de tabla, placas y rótulos de las placas móviles. Archivo en ancho normal queda para lo que se lee y se pulsa: cuerpo, campos, botones y rótulos de campo, ahora en frase normal.
 
 ### Hierarchy
-- **Marca** (display 900, clamp(3.5rem, 1.5rem + 7vw, 6rem), 0.86, mayúsculas): solo el título de la hoja de acceso. En una columna (hasta 860 px) el tamaño es fluido, clamp(2.75rem, 1rem + 9vw, 4.5rem), para no desbordar a 320 px.
-- **Título de sección** (display 800, clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem), 0.92, mayúsculas): el h2 de cada página, siempre entre comillas.
-- **Título de panel** (display 800, 1.75rem, 1.1, 0.03em): h2 del panel de acceso, sobre nailon; hereda las comillas del h2.
+- **Marca** (display 900, clamp(3.5rem, 1.5rem + 7vw, 6rem), 0.86, mayúsculas): solo el título de la hoja de acceso (h1.auth-titulo, sin comillas). En una columna (hasta 860 px) el tamaño es fluido, clamp(2.75rem, 1rem + 9vw, 4.5rem), para no desbordar a 320 px.
+- **Título de sección** (display 800, clamp(2.5rem, 1.5rem + 3.6vw, 4.25rem), 0.92, mayúsculas): el h1 único de cada pantalla interna, siempre entre comillas. La regla de rótulo es `h1:not(.auth-titulo), h2` y las comillas van en `h1:not(.auth-titulo)::before/::after` y `h2::before/::after`.
+- **Título de panel** (display 800, 1.75rem, 1.1, 0.03em): h2 del panel de acceso, sobre nailon; hereda las comillas del h2. Jerarquía del acceso: h1 = marca, h2 = título del panel.
 - **Título de estado vacío** (display 800, 2rem, 1, 0.02em, entre comillas).
 - **Marca de barra** (display 800, 1.5rem, 0.02em, mayúsculas) y **enlaces de barra** (display 600, 1rem, 0.05em; el activo 700).
 - **Rótulo** (display 600, 1.0625rem, 0.08em, mayúsculas): cabeceras de tabla y etiquetas de las placas móviles; la placa de datos usa 500 con 0.06em, y el rótulo de los avisos 800 a 1.1875rem.
@@ -241,22 +249,24 @@ Paleta de almacén de neutros fríos con un solo naranja de señal; el negro y e
 - **Cuerpo** (Archivo 400, 0.9375rem, 1.5): texto, celdas.
 - **Cuerpo destacado** (Archivo 700, 1.0625rem): celda principal en placas móviles.
 - **Rótulo de campo** (Archivo 600, 0.8125rem, texto suave, frase normal).
+- **Indicador de obligatorio** (Archivo 500, 0.8125rem, texto suave): la palabra «obligatorio», arriba a la derecha del rótulo.
 - **Botón** (Archivo 800, 0.8125rem, 0.06em, mayúsculas): botón de envío; los de barra y pie de formulario usan 700 con 0.04em; los de fila, 700 a 0.6875rem.
 
 ### Named Rules
-**The Rótulo Entre Comillas Rule.** Un nombre de zona (h2, título de estado vacío, cabecera de aviso) se escribe en mayúsculas de la display y entre comillas tipográficas “ ”, generadas con ::before/::after, no escritas en el marcado.
+**The Rótulo Entre Comillas Rule.** Un nombre de zona (h1 de pantalla, h2 del panel de acceso, título de estado vacío, cabecera de aviso) se escribe en mayúsculas de la display y entre comillas tipográficas “ ”, generadas con ::before/::after, no escritas en el marcado.
 **The Display Es Rótulo Rule.** Big Shoulders Display solo para rótulos, marca, identificadores, cabeceras y placas: texto corto en mayúsculas; nunca para texto corrido, campos ni botones, que son Archivo.
+**The Un Solo H1 Rule.** Cada pantalla tiene un único h1: en las vistas internas es el rótulo de sección; en el acceso es la marca y el título del panel es h2. No se baja el nivel de un título para ajustar su tamaño: el tamaño lo da la clase.
 **The Dieciséis Rule.** Los campos de formulario usan 1rem (16 px) para evitar el zoom automático en iOS.
 
 ## Layout
 
 Página centrada de 1280 px máximo con relleno de 24/32 px (16 px bajo 720 px). Un solo ritmo de espaciado: 4, 8, 12, 16, 24, 32, 48, 64 px. Objetivo táctil mínimo de 44 px (`alto-control`); acciones de fila de 32 px en escritorio y 44 px en móvil. En la barra superior, los enlaces de sección y «Cerrar sesión» miden 36 px de alto en escritorio y 44 px a 720 px o menos.
 
-Estructura de página interna: enlace «Saltar al contenido», barra superior, h2 con 48 px de margen superior, barra de acciones, avisos, tabla o formulario (máximo 480 px), todo dentro de `<main id="contenido" tabindex="-1">` (presente en las 14 vistas internas). El acceso usa cuadrícula de dos columnas (1.15fr y panel de 320-400 px, hueco de 48 px, máximo 1040 px), apilada bajo 860 px (columna de 440 px máximo, marca fluida); el panel deja 60 px sobre sí para la brida.
+Estructura de página interna: enlace «Saltar al contenido», barra superior, h1 con 48 px de margen superior, barra de acciones, avisos, tabla o formulario (máximo 480 px), todo dentro de `<main id="contenido" tabindex="-1">` (presente en las 14 vistas internas). El acceso usa cuadrícula de dos columnas (1.15fr y panel de 320-400 px, hueco de 48 px, máximo 1040 px), apilada bajo 860 px (columna de 440 px máximo, marca fluida); el panel deja 60 px sobre sí para la brida.
 
 Puntos de ruptura observados: 1240 px (por encima la barra cabe en una fila; por debajo pasa a dos filas y los enlaces forman una tira desplazable con difuminado a la derecha), 860 px (acceso apilado), 720 px (relleno y márgenes reducidos, botones de barra a ancho completo, enlaces de la barra y «Cerrar sesión» a 44 px de alto), 640 px (las tablas con .tabla-placas se convierten en placas), 480 px (botones de formulario a 100%).
 
-En móvil cada fila de una tabla-placas es una placa: borde de tinta, ID como placa en la esquina superior derecha con prefijo «ID», celda principal en 17 px/700, resto con rótulo de la display (data-label) y acciones a ancho completo tras una línea suave.
+En móvil cada fila de una tabla-placas es una placa: borde de tinta, ID como placa en la esquina superior derecha con prefijo «ID», celda principal en 17 px/700, resto con rótulo de la display (data-label) y acciones a ancho completo tras una línea suave. La fila de cabecera no se quita con display:none: se oculta solo a la vista (position absolute, 1 px, overflow hidden, clip-path inset(50%)) para seguir en el árbol de accesibilidad, y las 6 tablas .tabla-placas llevan roles explícitos (role=table, row, columnheader, cell) porque display:block rompe la semántica nativa de tabla.
 
 ## Elevation & Depth
 
@@ -287,6 +297,7 @@ Esquinas casi rectas: 2 px en controles, placas de ID, badges y botones; 3 px en
 
 ### Inputs / Fields
 - **Style:** blanco, borde de tinta 1,5 px, radio 2 px, 44 px de alto; rótulo de campo en Archivo 600, 13 px, frase normal, sobre el campo.
+- **Obligatorio:** todo label con un control `required` muestra «obligatorio» (Archivo 500, 13 px, texto suave) arriba a la derecha del rótulo, con `form label:has(:required)::after`; el label es `position: relative`. Solo CSS, sin marcado añadido; se suma al atributo required, que sigue siendo la fuente.
 - **Focus:** anillo de 3 px en naranja de foco (#d94a00), sin contorno.
 - **Error:** el mensaje (.campo-error) está en el marcado y se muestra con :user-invalid tras la interacción; el campo gana una franja de 5 px en el borde inferior y el mensaje lleva un cuadrado con franja.
 
@@ -300,7 +311,13 @@ Enlace (`.saltar`) que lleva a `<main id="contenido" tabindex="-1">`. Fuera de p
 El panel de acceso (.auth-panel) es una etiqueta de almacén: cabecera nailon con el agujero perforado a la izquierda (círculo que deja ver el concreto, con un anillo tenue de material), y una brida negra (tinta, nunca naranja) que sube desde el agujero, hecha con ::before (cinta de 6x78 px) y ::after (cabeza de 14x20 px). Se balancea una sola vez al cargar (1300 ms, 350 ms de retardo, punto de giro en el agujero) y queda quieta; con prefers-reduced-motion no se anima. El cuerpo del panel lleva el formulario sin borde propio y el botón naranja a ancho completo con la flecha a la derecha.
 
 ### Tablas
-Cabecera nailon con rótulos de la display en blanco, filas blancas con línea suave, hover fila-hover, cifras tabulares, celda vacía con raya (—). Estado vacío: título entre comillas, texto suave y acción naranja.
+Cabecera nailon con rótulos de la display en blanco, filas blancas con línea suave, hover fila-hover, cifras tabulares, celda vacía con raya (—). Estado vacío: título entre comillas, texto suave y acción naranja. Las tablas .tabla-placas llevan role=table, row, columnheader y cell; en móvil la cabecera queda oculta a la vista pero presente para lectores de pantalla (ver Layout).
+
+### Acciones de fila con nombre accesible
+Cada enlace o botón de fila (editar, eliminar, ver alumnos, desmatricular) lleva aria-label con el registro afectado: «Editar asignatura Bases de Datos», «Eliminar titulación X», «Ver alumnos de X», «Desmatricular a X de Y». El aria-label empieza siempre por el texto visible del control (WCAG 2.5.3), de modo que los botones idénticos de una lista se distinguen sin cambiar lo que se ve.
+
+### Favicon
+`css/favicon.svg`: cuadrado nailon con el anillo blanco del agujero de la etiqueta, el mismo que precede a la marca de la barra. Se enlaza en el `<head>` de todas las vistas; el filtro de seguridad sirve /css/ sin sesión, así que también se ve en el acceso.
 
 ### Avisos
 .error y .ok: caja blanca con borde de tinta y rótulo “ERROR” / “HECHO” en la display; el error añade franja de 6 px en el borde superior. Llevan role="alert" y role="status" en las vistas.
@@ -316,6 +333,9 @@ Barra `progress.ocupacion` (16 px, borde de tinta, relleno tinta) con texto de A
 - **Do** reservar la franja diagonal para peligro y límite: borrar, error, campo inválido, asignatura completa.
 - **Do** nombrar cada zona con un rótulo entre comillas generado por CSS, y dar a cada registro su placa de ID en la display.
 - **Do** tomar toda medida de las variables de :root y reutilizar las clases existentes (.toolbar, .placa, .badge, .error, .ok, .tabla-placas, .acciones-form) antes de crear estilos por página.
+- **Do** dar a cada pantalla un único h1 (rótulo de sección en las internas; marca en el acceso, con el panel como h2).
+- **Do** dar a cada acción de fila un aria-label con el registro que empieza por su texto visible, y roles explícitos a toda tabla .tabla-placas.
+- **Do** ocultar la cabecera de una tabla-placas con la técnica visualmente-oculto, nunca con display:none.
 - **Do** dar a cada tabla nueva data-label y las clases celda-id, celda-principal, celda-acciones para que sea placa en móvil.
 - **Do** acompañar el estado con texto o forma, no solo con color; avisos con role="alert" o "status".
 - **Do** desactivar el balanceo de la etiqueta con prefers-reduced-motion y no repetirlo tras la carga.
@@ -323,6 +343,7 @@ Barra `progress.ocupacion` (16 px, borde de tinta, relleno tinta) con texto de A
 ### Don't:
 - **Don't** dibujar el foco con #ff5a00 (2,83:1 sobre el suelo) ni bajar `foco` de 3:1.
 - **Don't** usar naranja como texto, borde o decoración, ni para varias acciones a la vez en una misma zona, ni para la brida.
+- **Don't** repetir h1 en una pantalla ni usar h2 como título de pantalla interna.
 - **Don't** usar la franja como adorno ni en superficies sin peligro.
 - **Don't** usar la display en campos, botones ni texto corrido, ni volver a mayúsculas monoespaciadas para los rótulos de campo.
 - **Don't** añadir fotos, ilustraciones, degradados decorativos ni fuentes cargadas de terceros.

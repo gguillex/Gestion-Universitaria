@@ -475,7 +475,7 @@ form label:has(:required)::after {
     position: absolute;
     top: 0;
     right: 0;
-    font-size: var(--t-xs);
+    font-size: var(--t-sm);
     font-weight: 500;
     color: var(--c-texto-suave);
 }
