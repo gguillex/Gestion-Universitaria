@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----------------------------------------------------------------------------
-Fuentes tipográficas incluidas en src/main/webapp/css/fonts/ (no se cubren
-con la licencia anterior; cada una conserva la suya):
-
-  - Archivo               SIL Open Font License 1.1  (OFL-Archivo.txt)
-  - Big Shoulders Display SIL Open Font License 1.1  (OFL-BigShouldersDisplay.txt)
