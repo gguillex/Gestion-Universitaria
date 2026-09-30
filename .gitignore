@@ -1,12 +1,19 @@
-# Maven build output
+# Compilación (Maven)
 target/
 
-# Eclipse project files
+# IDE
 .classpath
 .project
 .settings/
 .metadata/
+.idea/
+*.iml
+.vscode/
+*.launch
 
-# OS
+# Sistema operativo
 Thumbs.db
 .DS_Store
+
+# Registros
+*.log
