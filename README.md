@@ -52,7 +52,7 @@ Requisitos: **JDK 17 o superior**, **Tomcat 11** y **MySQL o MariaDB** (por ejem
 
 **Acceso de ejemplo:** usuario `admin`, contraseña `admin`. Cámbiala en cuanto entres (*Usuarios → Editar*).
 
-> **Uso en producción:** este proyecto está pensado para aprender y demostrar la arquitectura. Antes de exponerlo, cambia las credenciales de ejemplo, configura una contraseña para el usuario de la base de datos y sirve la aplicación por HTTPS.
+> **Uso en producción:** este proyecto es una demostración de la arquitectura, no un producto listo para producción. Antes de exponerlo, cambia las credenciales de ejemplo, configura una contraseña para el usuario de la base de datos y sirve la aplicación por HTTPS.
 
 ## Pruebas
 
@@ -73,6 +73,8 @@ Además de la interfaz web, los datos se pueden gestionar por HTTP y JSON bajo `
 | Asignaturas | `/rest/asignatura` | lo anterior, más asignar o quitar el profesor |
 
 La API usa la misma sesión que la interfaz web. Las lecturas (`GET`) solo necesitan haber iniciado sesión; `POST`, `PUT` y `DELETE` envían además el token CSRF en la cabecera `X-CSRF-Token`. Las respuestas de error son siempre `{"resultado": "mensaje"}` con su código HTTP. Hay pantallas de ejemplo en el menú *API REST*, y los endpoints completos están en [docs/rest.md](docs/rest.md).
+
+![Cliente REST de titulaciones](docs/img/api-rest.png)
 
 ## Seguridad
 

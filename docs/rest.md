@@ -11,7 +11,7 @@ flowchart LR
     J --> K["Controller<br/>@Path, verbos HTTP"]
     K --> S["Service<br/>validación y reglas"]
     S --> D["DAO<br/>JDBC (los mismos del MVC)"]
-    D --> B[(MySQL)]
+    D --> B[(MySQL / MariaDB)]
     K -.->|cualquier error| E["ErrorMapper<br/>{resultado: mensaje}"]
     F -.->|sin sesión| U["401 JSON"]
 ```
@@ -31,7 +31,7 @@ Jersey se registra en `web.xml` para `/rest/*` y descubre las clases `@Path` del
 - **Recursos con URL:** `/rest/titulacion`, `/rest/profesor`, `/rest/asignatura`; un elemento concreto se identifica por su `id`.
 - **Verbos HTTP como CRUD:** `GET` lee, `POST` crea (sin `id`), `PUT` modifica (con `id`) y `DELETE` borra.
 - **Códigos de estado:** 200 correcto; 400 petición inválida; 401 sin sesión; 403 token CSRF ausente o inválido; 404 no existe; 405 verbo no permitido; 409 conflicto con una regla de negocio; 413 cuerpo demasiado grande; 415 no es `application/json`; 500 error interno.
-- **Sin estado en el servidor:** cada petición lleva su propia identificación (la cookie de sesión y, al escribir, el token CSRF); el servicio no guarda nada entre llamadas.
+- **Sin estado de negocio entre llamadas:** cada petición trae todo lo necesario para procesarla y los datos viven solo en la base de datos. La identidad del usuario va en la sesión HTTP que comparte con la interfaz web (la cookie y, al escribir, el token CSRF), para no mantener una segunda autenticación.
 
 ## Seguridad
 
@@ -40,7 +40,7 @@ Jersey se registra en `web.xml` para `/rest/*` y descubre las clases `@Path` del
 - **Sin sesión, 401.** La API responde `{"resultado": "Sesión no iniciada"}` en lugar de redirigir al login. Las páginas del cliente (`/rest-ui/*`) sí redirigen.
 - **Token CSRF en cabecera.** Toda petición que no sea `GET`, `HEAD` u `OPTIONS` debe llevar `X-CSRF-Token` con el token de la sesión; sin él, 403. El cliente lo lee de una etiqueta `<meta name="csrf-token">` que pinta el JSP.
 - **Usuario vigente en cada petición.** Como en el MVC, el filtro relee el usuario en la base de datos: si se borra la cuenta, la API deja de responderle al instante. Si la base de datos falla en ese momento, la API responde un 500 en JSON, no una página de error.
-- **Permisos.** Igual que en la interfaz clásica, cualquier usuario con sesión puede gestionar titulaciones, profesores y asignaturas; la gestión de usuarios (solo `admin`) no está expuesta por REST.
+- **Permisos.** Igual que en la interfaz clásica, cualquier usuario con sesión puede gestionar titulaciones, profesores y asignaturas; la gestión de usuarios (solo `admin`), los alumnos y las matrículas no están expuestos por REST.
 - **Cuerpo limitado y validado.** Máximo 64 KB, solo `application/json`, longitudes de texto según la base de datos (200 caracteres en los nombres y 10.000 en la descripción) y lectura estricta de tipos: un entero debe ser un entero de verdad (`"30"`, `2.9` o `4294967297` son un 400, no se convierten en silencio) y un texto debe ser un texto.
 - **Sin caché.** Las respuestas llevan `Cache-Control: no-store`.
 - **Salida segura en el cliente.** El texto que llega del servidor se inserta con `textContent`, nunca como HTML.

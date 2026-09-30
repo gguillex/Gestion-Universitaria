@@ -823,6 +823,9 @@ form textarea:user-invalid ~ .campo-error { display: block; }
     text-transform: uppercase;
 }
 
+/* Formulario seguido de su listado en la misma pantalla (cliente REST) */
+form + .tabla-placas { margin-top: var(--e-5); }
+
 /* ---------- Botones al pie de un formulario ---------- */
 
 .acciones-form { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-5); }

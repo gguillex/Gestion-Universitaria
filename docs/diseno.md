@@ -299,6 +299,7 @@ Esquinas casi rectas: 2 px en controles, placas de ID, badges y botones; 3 px en
 - **Style:** blanco, borde de tinta 1,5 px, radio 2 px, 44 px de alto; rótulo de campo en Archivo 600, 13 px, frase normal, sobre el campo.
 - **Obligatorio:** todo label con un control `required` muestra «obligatorio» (Archivo 500, 13 px, texto suave) arriba a la derecha del rótulo, con `form label:has(:required)::after`; el label es `position: relative`. Solo CSS, sin marcado añadido; se suma al atributo required, que sigue siendo la fuente.
 - **Focus:** anillo de 3 px en naranja de foco (#d94a00), sin contorno.
+- **Rótulo de formulario (.form-titulo):** para un formulario que comparte pantalla con su listado (cliente REST): display 24 px en 700 y mayúsculas, sin las comillas de los `h1` y `h2`, que quedan para el título de la pantalla.
 - **Error:** el mensaje (.campo-error) está en el marcado y se muestra con :user-invalid tras la interacción; el campo gana una franja de 5 px en el borde inferior y el mensaje lleva un cuadrado con franja.
 
 ### Navigation
@@ -311,7 +312,7 @@ Enlace (`.saltar`) que lleva a `<main id="contenido" tabindex="-1">`. Fuera de p
 El panel de acceso (.auth-panel) es una etiqueta de almacén: cabecera nailon con el agujero perforado a la izquierda (círculo que deja ver el concreto, con un anillo tenue de material), y una brida negra (tinta, nunca naranja) que sube desde el agujero, hecha con ::before (cinta de 6x78 px) y ::after (cabeza de 14x20 px). Se balancea una sola vez al cargar (1300 ms, 350 ms de retardo, punto de giro en el agujero) y queda quieta; con prefers-reduced-motion no se anima. El cuerpo del panel lleva el formulario sin borde propio y el botón naranja a ancho completo con la flecha a la derecha.
 
 ### Tablas
-Cabecera nailon con rótulos de la display en blanco, filas blancas con línea suave, hover fila-hover, cifras tabulares, celda vacía con raya (—). Estado vacío: título entre comillas, texto suave y acción naranja. Las tablas .tabla-placas llevan role=table, row, columnheader y cell; en móvil la cabecera queda oculta a la vista pero presente para lectores de pantalla (ver Layout).
+Cabecera nailon con rótulos de la display en blanco, filas blancas con línea suave, hover fila-hover, cifras tabulares, celda vacía con raya (—). Estado vacío: título entre comillas, texto suave y acción naranja. Si un formulario precede a la tabla (`form + .tabla-placas`), se separan 24 px. Las tablas .tabla-placas llevan role=table, row, columnheader y cell; en móvil la cabecera queda oculta a la vista pero presente para lectores de pantalla (ver Layout).
 
 ### Acciones de fila con nombre accesible
 Cada enlace o botón de fila (editar, eliminar, ver alumnos, desmatricular) lleva aria-label con el registro afectado: «Editar asignatura Bases de Datos», «Eliminar titulación X», «Ver alumnos de X», «Desmatricular a X de Y». El aria-label empieza siempre por el texto visible del control (WCAG 2.5.3), de modo que los botones idénticos de una lista se distinguen sin cambiar lo que se ve.
