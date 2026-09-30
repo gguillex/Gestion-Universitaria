@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
+    <!-- Pool de conexiones JNDI. Los valores son los de una instalación local de
+         XAMPP (usuario root sin contraseña): cámbialos para cualquier otro entorno. -->
     <Resource name="jdbc/gestion"
               auth="Container"
               type="javax.sql.DataSource"
