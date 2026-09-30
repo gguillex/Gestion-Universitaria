@@ -33,6 +33,7 @@ Herramienta interna, no un producto comercial: no compite por atención. Su valo
 - Arquitectura MVC con controlador frontal: las vistas son solo presentación; acciones y DAO no se tocan por motivos de diseño.
 - Todo el estilo vive en una única hoja compartida, `src/main/webapp/css/style.css`, con variables CSS; **ningún JSP lleva `<style>` propio**. Clases existentes a reutilizar: `.topbar`, `.toolbar`, `.error`, `.ok`, `.badge`, `.auth`, `.form-borrar`.
 - Formularios que modifican datos llevan campo oculto `csrfToken` y van por POST (incluidos los botones de borrar, que son formularios `.form-borrar`).
+- La misma información está disponible por una **API REST en JSON** (titulaciones, profesores y asignaturas), protegida con la misma sesión, roles y token CSRF que la interfaz web; sus pantallas de ejemplo siguen el mismo sistema de diseño. Ver [rest.md](rest.md).
 - Se permiten fuentes o librerías externas si aportan valor.
 
 ## Brand Commitments

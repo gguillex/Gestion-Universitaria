@@ -2,6 +2,8 @@
 
 La aplicación sigue el patrón **Front Controller**: todas las peticiones pasan por un filtro de seguridad y por un único servlet que delega en una clase de acción por operación. Las vistas solo presentan datos.
 
+Además de esta interfaz web, la aplicación expone una **API REST** (`/rest/*`, atendida por Jersey) sobre los mismos DAO, con el mismo filtro de seguridad. Está descrita en [rest.md](rest.md), y la comparación entre las dos interfaces en [mvc-y-rest.md](mvc-y-rest.md).
+
 ## Flujo de una petición
 
 ```mermaid
@@ -31,6 +33,7 @@ flowchart LR
 | `gestion.modelo` | `ConexionBD` (pool JNDI) y un DAO por entidad. Solo SQL y JDBC, sin lógica de negocio |
 | `gestion.bean` | Clases de datos: `Titulacion`, `Asignatura`, `Profesor`, `Alumno`, `Usuario` |
 | `gestion.util` | `Passwords` (hash PBKDF2) y `LimitadorIntentos` |
+| `gestion.rest` | Servicio REST: `controller`, `service`, `exception` y `util`. Ver [rest.md](rest.md) |
 
 Las vistas están en `src/main/webapp/WEB-INF/vistas/`, protegidas dentro de `WEB-INF`: solo se llega a ellas a través del controlador.
 
@@ -50,9 +53,9 @@ Convención de nombres: `listar*` y `form*` leen y muestran; `guardar*`, `elimin
 
 ## Seguridad
 
-- **Filtro de sesión.** Sin sesión, toda petición se redirige al inicio de sesión salvo las acciones públicas.
+- **Filtro de sesión.** Sin sesión, toda petición se redirige al inicio de sesión salvo las acciones públicas. La API REST responde 401 en JSON en lugar de redirigir.
 - **Solo `POST` para modificar.** `guardar*`, `eliminar*`, `desmatricular`, `login` y `registro` rechazan `GET` con un error 405.
-- **Token CSRF.** Cada sesión tiene un token que los formularios envían en el campo oculto `csrfToken`; un `POST` sin el token correcto se rechaza.
+- **Token CSRF.** Cada sesión tiene un token que los formularios envían en el campo oculto `csrfToken`; un `POST` sin el token correcto se rechaza. La API REST lo recibe en la cabecera `X-CSRF-Token` en todo lo que no sea una lectura.
 - **Roles.** El filtro vuelve a leer el usuario de la base de datos en cada petición, de modo que quitar un rol o borrar una cuenta surte efecto al instante. Las acciones de usuarios además comprueban que el rol sea `admin`.
 - **Contraseñas.** PBKDF2-HMAC-SHA256, 210.000 iteraciones y sal de 16 bytes. Si el usuario no existe se hace igualmente el cálculo, para que el tiempo de respuesta no delate qué nombres están registrados.
 - **Sesión.** El identificador se renueva al iniciar sesión (contra la fijación de sesión) y el hash nunca se guarda en ella.
@@ -114,3 +117,5 @@ El script [`db/gestion_universitaria.sql`](../db/gestion_universitaria.sql) crea
 ## Vistas y estilo
 
 Los JSP usan JSTL y EL, sin scriptlets. Todo el estilo vive en una única hoja, `src/main/webapp/css/style.css`, con variables CSS; ningún JSP lleva estilos propios. Las reglas de diseño y de accesibilidad están en [diseno.md](diseno.md).
+
+Las pantallas del cliente REST (`src/main/webapp/rest-ui/`) comparten esa misma hoja y el mismo menú. Están fuera de `WEB-INF` porque se sirven directamente, pero el filtro les exige sesión.
