@@ -103,7 +103,7 @@ Este diseño garantiza que:
 
 ## 4. Diseño de la base de datos
 
-La base de datos se llama `gestion_universitaria` y contiene cuatro tablas principales. El script completo se entrega en `db/gestion_universitaria.sql`.
+La base de datos se llama `gestion_universitaria` y contiene cuatro tablas principales. El script completo se entrega en `WEB-INF/gestion_universitaria.sql`.
 
 ### Diagrama de tablas
 
@@ -742,7 +742,7 @@ Redirige automáticamente al login al acceder a la raíz de la aplicación.
 
 1. Arrancar XAMPP (Apache + MySQL).
 2. Crear la base de datos `gestion_universitaria` en phpMyAdmin.
-3. Ejecutar el script `db/gestion_universitaria.sql`.
+3. Ejecutar el script `WEB-INF/gestion_universitaria.sql`.
 4. Construir el proyecto: `mvn clean package`.
 5. Copiar el `.war` generado en `target/` al directorio `webapps/` de Tomcat.
 6. Iniciar Tomcat y acceder a `http://localhost:8080/GestionUniversitaria`.

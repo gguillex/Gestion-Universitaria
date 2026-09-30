@@ -12,7 +12,7 @@
     </welcome-file-list>
 
     <resource-ref>
-        <description>Pool MySQL gestion</description>
+        <description>Pool MySQL de la aplicación</description>
         <res-ref-name>jdbc/gestion</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
