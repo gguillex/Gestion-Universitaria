@@ -1,0 +1,71 @@
+name: Error
+description: Algo no funciona como debería
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por avisar. Si es un problema de **seguridad**, no lo publiques aquí: sigue la [política de seguridad](https://github.com/gguillex/Gestion-Universitaria/security/policy).
+  - type: textarea
+    id: descripcion
+    attributes:
+      label: Qué ocurre
+      description: Describe el problema con claridad.
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducirlo
+      placeholder: |
+        1. Entra como administrador
+        2. Ve a…
+        3. Pulsa…
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Qué esperabas que pasara
+    validations:
+      required: true
+  - type: dropdown
+    id: parte
+    attributes:
+      label: Parte de la aplicación
+      options:
+        - Interfaz web (JSP)
+        - API REST
+        - Base de datos
+        - Documentación
+        - Otra
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versión
+      placeholder: "1.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: entorno
+    attributes:
+      label: Entorno
+      description: Tomcat, JDK, MySQL o MariaDB, sistema operativo y navegador.
+      placeholder: "Tomcat 11.0.x · JDK 17 · MariaDB 10.4 · Linux · Firefox"
+  - type: textarea
+    id: registros
+    attributes:
+      label: Mensajes de error o registros
+      description: Pega la salida de Tomcat o de la consola del navegador. Quita antes cualquier dato sensible.
+      render: shell
+  - type: checkboxes
+    id: confirmacion
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: He buscado si ya existía un issue igual
+          required: true
+        - label: No he incluido contraseñas ni datos personales
+          required: true

@@ -110,6 +110,10 @@ La API usa la misma sesión que la interfaz web. Las lecturas (`GET`) solo neces
 └── mvnw, mvnw.cmd            Maven Wrapper: no hace falta instalar Maven
 ```
 
+## Contribuir
+
+Las contribuciones son bienvenidas: consulta la [guía de contribución](.github/CONTRIBUTING.md) y el [código de conducta](.github/CODE_OF_CONDUCT.md). Las vulnerabilidades se comunican en privado, como explica la [política de seguridad](.github/SECURITY.md).
+
 ## Licencia
 
 Código bajo licencia [MIT](LICENSE). Las fuentes incluidas (Archivo y Big Shoulders Display) se distribuyen con su propia licencia SIL Open Font License; ver [`src/main/webapp/css/fonts/`](src/main/webapp/css/fonts/).

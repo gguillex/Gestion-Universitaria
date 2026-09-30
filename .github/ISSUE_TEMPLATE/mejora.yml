@@ -1,0 +1,41 @@
+name: Mejora
+description: Propón una idea o una funcionalidad nueva
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Qué necesidad cubre
+      description: Cuenta qué quieres conseguir y por qué hoy no se puede o es incómodo.
+    validations:
+      required: true
+  - type: textarea
+    id: propuesta
+    attributes:
+      label: Propuesta
+      description: Cómo te imaginas que funcionaría.
+    validations:
+      required: true
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas que has considerado
+  - type: dropdown
+    id: parte
+    attributes:
+      label: Parte de la aplicación
+      options:
+        - Interfaz web (JSP)
+        - API REST
+        - Base de datos
+        - Documentación
+        - Otra
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmacion
+    attributes:
+      label: Antes de enviar
+      options:
+        - label: He buscado si ya existía una propuesta igual
+          required: true
