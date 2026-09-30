@@ -4,6 +4,7 @@ import gestion.accion.Accion;
 import gestion.bean.Usuario;
 import gestion.modelo.UsuarioDAO;
 import gestion.util.Passwords;
+import gestion.util.Sesion;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -12,12 +13,9 @@ public class AccionGuardarUsuario implements Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Usuario logueado = Sesion.exigirAdmin(request, response);
+        if (logueado == null) return null;
         HttpSession sesion = request.getSession(false);
-        Usuario logueado = (sesion != null) ? (Usuario) sesion.getAttribute("usuarioLogueado") : null;
-        if (logueado == null || !"admin".equals(logueado.getRol())) {
-            response.sendRedirect(request.getContextPath() + "/control?idAccion=listarTitulaciones");
-            return null;
-        }
 
         String idParam   = request.getParameter("id");
         String nombre    = request.getParameter("nombre");
@@ -62,7 +60,7 @@ public class AccionGuardarUsuario implements Accion {
             // si no, el rol/nombre antiguos seguirían aplicándose hasta el logout.
             if (u.getId() == logueado.getId()) {
                 u.setPassword(null); // el hash nunca viaja en la sesión
-                sesion.setAttribute("usuarioLogueado", u);
+                sesion.setAttribute(Sesion.ATRIBUTO_USUARIO, u);
             }
         } else {
             u.setPassword(Passwords.hashear(password));

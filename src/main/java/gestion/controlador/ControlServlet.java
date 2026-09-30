@@ -95,13 +95,13 @@ public class ControlServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String idAccion = request.getParameter("idAccion");
 
-        if (idAccion == null || !acciones.containsKey(idAccion)) {
+        Accion accion = (idAccion != null) ? acciones.get(idAccion) : null;
+        if (accion == null) {
             response.sendRedirect(request.getContextPath() + "/control?idAccion=mostrarLogin");
             return;
         }
 
         try {
-            Accion accion = acciones.get(idAccion);
             String jspDestino = accion.ejecutar(request, response);
             if (jspDestino != null) {
                 request.getRequestDispatcher(jspDestino).forward(request, response);

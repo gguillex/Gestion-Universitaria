@@ -14,11 +14,7 @@ public class UsuarioDAO {
             ps.setString(1, nombre);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return new Usuario(
-                            rs.getInt("id"),
-                            rs.getString("nombre"),
-                            rs.getString("password"),
-                            rs.getString("rol"));
+                    return construir(rs);
                 }
             }
         }
@@ -32,11 +28,7 @@ public class UsuarioDAO {
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                lista.add(new Usuario(
-                        rs.getInt("id"),
-                        rs.getString("nombre"),
-                        rs.getString("password"),
-                        rs.getString("rol")));
+                lista.add(construir(rs));
             }
         }
         return lista;
@@ -49,11 +41,7 @@ public class UsuarioDAO {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return new Usuario(
-                            rs.getInt("id"),
-                            rs.getString("nombre"),
-                            rs.getString("password"),
-                            rs.getString("rol"));
+                    return construir(rs);
                 }
             }
         }
@@ -103,5 +91,13 @@ public class UsuarioDAO {
             }
         }
         return false;
+    }
+
+    private Usuario construir(ResultSet rs) throws SQLException {
+        return new Usuario(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getString("password"),
+                rs.getString("rol"));
     }
 }

@@ -3,20 +3,16 @@ package gestion.accion.usuarios;
 import gestion.accion.Accion;
 import gestion.bean.Usuario;
 import gestion.modelo.UsuarioDAO;
+import gestion.util.Sesion;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 public class AccionFormUsuario implements Accion {
 
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession sesion = request.getSession(false);
-        Usuario logueado = (sesion != null) ? (Usuario) sesion.getAttribute("usuarioLogueado") : null;
-        if (logueado == null || !"admin".equals(logueado.getRol())) {
-            response.sendRedirect(request.getContextPath() + "/control?idAccion=listarTitulaciones");
-            return null;
-        }
+        Usuario logueado = Sesion.exigirAdmin(request, response);
+        if (logueado == null) return null;
 
         String idParam = request.getParameter("id");
         Usuario u = new Usuario();

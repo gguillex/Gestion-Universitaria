@@ -35,9 +35,7 @@ public class AccionMatricular implements Accion {
         // Sin parámetros o por GET → mostrar formulario. Solo se matricula por POST,
         // que es donde el filtro comprueba el token CSRF.
         if (idAlumnoParam == null || idAlumnoParam.isEmpty() || !"POST".equals(request.getMethod())) {
-            request.setAttribute("alumnos",     alumnoDao.listar());
-            request.setAttribute("asignaturas", asignaturaDao.listar());
-            return "/WEB-INF/vistas/alumnos/matricular.jsp";
+            return formulario(request, alumnoDao, asignaturaDao, null);
         }
 
         int idAlumno     = Integer.parseInt(idAlumnoParam);
@@ -45,10 +43,8 @@ public class AccionMatricular implements Accion {
 
         // Validación 1: ya matriculado
         if (alumnoDao.estaMatriculado(idAlumno, idAsignatura)) {
-            request.setAttribute("error", "El alumno ya está matriculado en esa asignatura.");
-            request.setAttribute("alumnos",     alumnoDao.listar());
-            request.setAttribute("asignaturas", asignaturaDao.listar());
-            return "/WEB-INF/vistas/alumnos/matricular.jsp";
+            return formulario(request, alumnoDao, asignaturaDao,
+                "El alumno ya está matriculado en esa asignatura.");
         }
 
         // Validación 2: capacidad máxima. Comprobación y matriculación atómicas
@@ -57,16 +53,22 @@ public class AccionMatricular implements Accion {
         boolean matriculado = alumnoDao.matricular(idAlumno, idAsignatura);
         if (!matriculado) {
             Asignatura asignatura = asignaturaDao.buscarPorId(idAsignatura);
-            request.setAttribute("error",
+            return formulario(request, alumnoDao, asignaturaDao,
                 "No se puede matricular: la asignatura ha alcanzado su capacidad máxima (" +
                 asignatura.getCapacidadMaxima() + " alumnos).");
-            request.setAttribute("alumnos",     alumnoDao.listar());
-            request.setAttribute("asignaturas", asignaturaDao.listar());
-            return "/WEB-INF/vistas/alumnos/matricular.jsp";
         }
 
         response.sendRedirect(request.getContextPath() +
             "/control?idAccion=matriculadosAsignatura&idAsignatura=" + idAsignatura);
         return null;
+    }
+
+    /** Carga los desplegables del formulario y, si hay, el mensaje de error. */
+    private String formulario(HttpServletRequest request, AlumnoDAO alumnoDao,
+                              AsignaturaDAO asignaturaDao, String error) throws Exception {
+        if (error != null) request.setAttribute("error", error);
+        request.setAttribute("alumnos",     alumnoDao.listar());
+        request.setAttribute("asignaturas", asignaturaDao.listar());
+        return "/WEB-INF/vistas/alumnos/matricular.jsp";
     }
 }

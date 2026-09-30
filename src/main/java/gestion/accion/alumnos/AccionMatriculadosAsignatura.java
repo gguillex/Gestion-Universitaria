@@ -2,7 +2,6 @@ package gestion.accion.alumnos;
 
 import gestion.accion.Accion;
 import gestion.bean.Alumno;
-import gestion.bean.Asignatura;
 import gestion.modelo.AlumnoDAO;
 import gestion.modelo.AsignaturaDAO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,9 +24,7 @@ public class AccionMatriculadosAsignatura implements Accion {
         AlumnoDAO     alumnoDao    = new AlumnoDAO();
         AsignaturaDAO asignaturaDao = new AsignaturaDAO();
 
-        Asignatura asignatura = asignaturaDao.buscarPorId(idAsignatura);
-        List<Alumno> alumnos   = alumnoDao.listarPorAsignatura(idAsignatura);
-        int          ocupacion = alumnoDao.contarMatriculados(idAsignatura);
+        List<Alumno> alumnos = alumnoDao.listarPorAsignatura(idAsignatura);
 
         // Exportación CSV si se solicita
         if ("true".equals(request.getParameter("csv"))) {
@@ -47,9 +44,9 @@ public class AccionMatriculadosAsignatura implements Accion {
             return null; // ya se escribió la respuesta directamente
         }
 
-        request.setAttribute("asignatura", asignatura);
+        request.setAttribute("asignatura", asignaturaDao.buscarPorId(idAsignatura));
         request.setAttribute("alumnos",    alumnos);
-        request.setAttribute("ocupacion",  ocupacion);
+        request.setAttribute("ocupacion",  alumnos.size());
         return "/WEB-INF/vistas/alumnos/matriculados.jsp";
     }
 

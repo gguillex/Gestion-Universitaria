@@ -12,13 +12,19 @@ import java.sql.Connection;
  */
 public class ConexionBD {
 
+    private static volatile DataSource dataSource;
+
     /**
      * Obtiene una conexión del pool de Tomcat.
      * El llamador es responsable de cerrarla (idealmente con try-with-resources).
      */
     public static Connection getConexion() throws Exception {
-        Context ctx = new InitialContext();
-        DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/gestion");
+        DataSource ds = dataSource;
+        if (ds == null) {
+            Context ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/gestion");
+            dataSource = ds;
+        }
         return ds.getConnection();
     }
 }
