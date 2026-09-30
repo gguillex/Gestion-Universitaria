@@ -1,7 +1,17 @@
 -- ============================================================
--- Script de creación de la base de datos
--- Base de datos: gestion_universitaria
+-- Gestión Universitaria: creación de la base de datos y datos de ejemplo
+--
+-- Uso:  mysql -u root < db/gestion_universitaria.sql
+-- Es repetible: recrea las tablas y vuelve a cargar los datos de ejemplo.
 -- ============================================================
+
+-- El archivo está en UTF-8: se fuerza esa codificación para que los acentos se
+-- guarden bien aunque el cliente use otra por defecto (p. ej. cmd en Windows).
+SET NAMES utf8mb4;
+
+CREATE DATABASE IF NOT EXISTS gestion_universitaria
+    CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE gestion_universitaria;
 
 -- Eliminar tablas en orden inverso a dependencias
 DROP TABLE IF EXISTS matriculas;
