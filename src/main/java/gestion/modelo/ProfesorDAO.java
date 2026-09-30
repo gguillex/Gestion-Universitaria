@@ -48,10 +48,13 @@ public class ProfesorDAO {
     public void insertar(Profesor p) throws Exception {
         String sql = "INSERT INTO profesores (nombre, email) VALUES (?, ?)";
         try (Connection con = ConexionBD.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, p.getNombre());
             ps.setString(2, p.getEmail());
             ps.executeUpdate();
+            try (ResultSet claves = ps.getGeneratedKeys()) {
+                if (claves != null && claves.next()) p.setId(claves.getInt(1));
+            }
         }
     }
 

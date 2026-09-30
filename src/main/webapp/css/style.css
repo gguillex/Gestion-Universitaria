@@ -812,6 +812,17 @@ form input:user-invalid ~ .campo-error,
 form select:user-invalid ~ .campo-error,
 form textarea:user-invalid ~ .campo-error { display: block; }
 
+/* Rótulo de un formulario que comparte pantalla con un listado (cliente REST) */
+.form-titulo {
+    margin: 0 0 var(--e-4);
+    font-family: var(--f-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
 /* ---------- Botones al pie de un formulario ---------- */
 
 .acciones-form { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-5); }

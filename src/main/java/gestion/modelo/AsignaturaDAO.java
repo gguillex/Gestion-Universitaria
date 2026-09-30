@@ -53,13 +53,16 @@ public class AsignaturaDAO {
     public void insertar(Asignatura a) throws Exception {
         String sql = "INSERT INTO asignaturas (nombre, capacidad_maxima, id_titulacion, id_profesor) VALUES (?, ?, ?, ?)";
         try (Connection con = ConexionBD.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, a.getNombre());
             ps.setInt(2, a.getCapacidadMaxima());
             ps.setInt(3, a.getIdTitulacion());
             if (a.getIdProfesor() != null) ps.setInt(4, a.getIdProfesor());
             else                            ps.setNull(4, Types.INTEGER);
             ps.executeUpdate();
+            try (ResultSet claves = ps.getGeneratedKeys()) {
+                if (claves != null && claves.next()) a.setId(claves.getInt(1));
+            }
         }
     }
 

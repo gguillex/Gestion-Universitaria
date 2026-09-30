@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <name>Gestión Universitaria</name>
-    <description>Aplicación web para gestionar titulaciones, asignaturas, profesorado, alumnado y matrículas (Jakarta EE, patrón Front Controller).</description>
+    <description>Aplicación web para gestionar titulaciones, asignaturas, profesorado, alumnado y matrículas (Jakarta EE, patrón Front Controller) con un servicio REST (Jersey) sobre los mismos datos.</description>
 
     <licenses>
         <license>
@@ -63,6 +63,26 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.2.0</version>
+        </dependency>
+
+        <!-- Servicio REST: Jersey 3.1.x (namespace jakarta.ws.rs, compatible con Tomcat 11).
+             No usar Jersey 2.x (javax). -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>3.1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>3.1.10</version>
+        </dependency>
+
+        <!-- JSON (JSONObject) para construir y leer el cuerpo de las peticiones REST -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20250107</version>
         </dependency>
 
         <!-- Tests: JUnit 5 + Mockito (solo en test, no van al WAR) -->

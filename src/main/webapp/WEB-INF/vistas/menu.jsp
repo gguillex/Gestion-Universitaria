@@ -10,6 +10,7 @@
 <c:set var="enAlumnos"      value="${fn:contains(accion, 'Alumno')}"/>
 <c:set var="enMatricular"   value="${accion == 'matricular'}"/>
 <c:set var="enUsuarios"     value="${fn:contains(accion, 'Usuario')}"/>
+<c:set var="enRest"         value="${fn:startsWith(pageContext.request.servletPath, '/rest-ui/')}"/>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 <nav class="topbar" aria-label="Principal">
     <div class="topbar-brand">Gestión Universitaria</div>
@@ -20,6 +21,7 @@
         <a href="${pageContext.request.contextPath}/control?idAccion=asignarProfesor" ${enAsignar ? 'aria-current="page"' : ''}>Asignar profesor</a>
         <a href="${pageContext.request.contextPath}/control?idAccion=listarAlumnos" ${enAlumnos ? 'aria-current="page"' : ''}>Alumnos</a>
         <a href="${pageContext.request.contextPath}/control?idAccion=matricular" ${enMatricular ? 'aria-current="page"' : ''}>Matricular</a>
+        <a href="${pageContext.request.contextPath}/rest-ui/index.jsp" ${enRest ? 'aria-current="page"' : ''}>API REST</a>
         <c:if test="${sessionScope.usuarioLogueado.rol == 'admin'}">
             <a href="${pageContext.request.contextPath}/control?idAccion=listarUsuarios" ${enUsuarios ? 'aria-current="page"' : ''}>Usuarios</a>
         </c:if>

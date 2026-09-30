@@ -44,10 +44,13 @@ public class TitulacionDAO {
     public void insertar(Titulacion t) throws Exception {
         String sql = "INSERT INTO titulaciones (nombre, descripcion) VALUES (?, ?)";
         try (Connection con = ConexionBD.getConexion();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, t.getNombre());
             ps.setString(2, t.getDescripcion());
             ps.executeUpdate();
+            try (ResultSet claves = ps.getGeneratedKeys()) {
+                if (claves != null && claves.next()) t.setId(claves.getInt(1));
+            }
         }
     }
 
